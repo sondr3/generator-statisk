@@ -70,11 +70,6 @@ module.exports = generators.Base.extend({
     };
 
     this.fs.writeJSON('package.json', _.extend(pkgJSONFields, this.pkg));
-
-    this.fs.copy(
-      this.templatePath('dummyfile.txt'),
-      this.destinationPath('dummyfile.txt')
-    );
   },
 
   default: function () {

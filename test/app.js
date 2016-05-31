@@ -22,8 +22,7 @@ test('generates expected files', () => {
     '.editorconfig',
     '.gitattributes',
     '.gitignore',
-    'README.md',
-    'dummyfile.txt'
+    'README.md'
   ]);
 });
 
