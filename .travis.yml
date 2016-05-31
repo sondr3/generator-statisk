@@ -1,7 +1,10 @@
 language: node_js
+sudo: false
 node_js:
-  - v6
-  - v5
-  - v4
-  - '0.12'
-  - '0.10'
+  - "6"
+  - "5"
+  - "4"
+after_success:
+    - './node_modules/.bin/nyc report --reporter=text-lcov | ./node_modules/.bin/coveralls'
+notifications:
+  email: false
