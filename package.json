@@ -1,0 +1,40 @@
+{
+  "name": "generator-static",
+  "version": "0.0.0",
+  "description": "The base for my static site Yeoman generators",
+  "homepage": "github.com/sondr3",
+  "author": {
+    "name": "Sondre Nilsen",
+    "email": "nilsen.sondre@gmail.com",
+    "url": "github.com/sondr3"
+  },
+  "files": [
+    "generators"
+  ],
+  "main": "generators/index.js",
+  "keywords": [
+    "",
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "yeoman-generator": "^0.23.0",
+    "chalk": "^1.0.0",
+    "yosay": "^1.0.0"
+  },
+  "devDependencies": {
+    "ava": "^0.15.1",
+    "coveralls": "^2.11.9",
+    "nyc": "^6.4.4",
+    "xo": "^0.15.1",
+    "yeoman-assert": "^2.0.0",
+    "yeoman-test": "^1.0.0"
+  },
+  "repository": "sondr3/generator-static",
+  "scripts": {
+    "test": "xo && nyc ava"
+  },
+  "license": "MIT",
+  "xo": {
+    "space": true
+  }
+}
