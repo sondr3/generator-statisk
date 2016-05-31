@@ -20,12 +20,16 @@ module.exports = generators.Base.extend({
 
   prompting: function () {
     var questions = [{
-      name: 'name',
+      name: 'projectName',
       message: 'Project name',
       store: true
     }, {
-      name: 'description',
+      name: 'projectDescription',
       message: 'Project description',
+      store: true
+    }, {
+      name: 'projectURL',
+      message: 'Project URL',
       store: true
     }, {
       name: 'authorName',
@@ -74,12 +78,23 @@ module.exports = generators.Base.extend({
   },
 
   default: function () {
+    this.composeWith('static:editorconfig', {}, {
+      local: require.resolve('../editorconfig')
+    });
+
     this.composeWith('static:git', {}, {
       local: require.resolve('../git')
     });
 
-    this.composeWith('static:editorconfig', {}, {
-      local: require.resolve('../editorconfig')
+    this.composeWith('static:readme', {
+      options: {
+        projectName: this.props.projectName,
+        projectDescription: this.props.projectDescription,
+        projectURL: this.props.projectURL,
+        authorName: this.props.authorName
+      }
+    }, {
+      local: require.resolve('../readme')
     });
   },
 
