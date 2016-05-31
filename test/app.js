@@ -14,6 +14,9 @@ test.before(() => {
 
 test('generates expected files', () => {
   assert.file([
+    '.editorconfig',
+    '.gitattributes',
+    '.gitignore',
     'dummyfile.txt'
   ]);
 });
