@@ -73,15 +73,15 @@ module.exports = generators.Base.extend({
   },
 
   default: function () {
-    this.composeWith('static:editorconfig', {}, {
+    this.composeWith('statisk:editorconfig', {}, {
       local: require.resolve('../editorconfig')
     });
 
-    this.composeWith('static:git', {}, {
+    this.composeWith('statisk:git', {}, {
       local: require.resolve('../git')
     });
 
-    this.composeWith('static:readme', {
+    this.composeWith('statisk:readme', {
       options: {
         projectName: this.props.projectName,
         projectDescription: this.props.projectDescription,

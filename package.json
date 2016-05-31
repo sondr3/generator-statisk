@@ -1,8 +1,8 @@
 {
-  "name": "generator-static",
+  "name": "generator-statisk",
   "version": "0.0.0",
-  "description": "The base for my static site Yeoman generators",
-  "homepage": "github.com/sondr3",
+  "description": "The base for my statisk site Yeoman generators",
+  "homepage": "github.com/sondr3/generator-statisk",
   "author": {
     "name": "Sondre Nilsen",
     "email": "nilsen.sondre@gmail.com",
@@ -30,7 +30,7 @@
     "yeoman-assert": "^2.0.0",
     "yeoman-test": "^1.0.0"
   },
-  "repository": "sondr3/generator-static",
+  "repository": "sondr3/generator-statisk",
   "scripts": {
     "test": "xo && nyc ava"
   },

@@ -1,19 +1,19 @@
-# generator-static [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
-> The base for my static site Yeoman generators
+# generator-statisk [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
+> The base for my statisk site Yeoman generators
 
 ## Installation
 
-First, install [Yeoman](http://yeoman.io) and generator-static using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
+First, install [Yeoman](http://yeoman.io) and generator-statisk using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
 
 ```bash
 npm install -g yo
-npm install -g generator-static
+npm install -g generator-statisk
 ```
 
 Then generate your new project:
 
 ```bash
-yo static
+yo statisk
 ```
 
 ## Getting To Know Yeoman
@@ -28,11 +28,11 @@ yo static
 MIT © [Sondre Nilsen](github.com/sondr3)
 
 
-[npm-image]: https://badge.fury.io/js/generator-static.svg
-[npm-url]: https://npmjs.org/package/generator-static
-[travis-image]: https://travis-ci.org/sondr3/generator-static.svg?branch=master
-[travis-url]: https://travis-ci.org/sondr3/generator-static
-[daviddm-image]: https://david-dm.org/sondr3/generator-static.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/sondr3/generator-static
-[coveralls-image]: https://coveralls.io/repos/sondr3/generator-static/badge.svg
-[coveralls-url]: https://coveralls.io/r/sondr3/generator-static
+[npm-image]: https://badge.fury.io/js/generator-statisk.svg
+[npm-url]: https://npmjs.org/package/generator-statisk
+[travis-image]: https://travis-ci.org/sondr3/generator-statisk.svg?branch=master
+[travis-url]: https://travis-ci.org/sondr3/generator-statisk
+[daviddm-image]: https://david-dm.org/sondr3/generator-statisk.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/sondr3/generator-statisk
+[coveralls-image]: https://coveralls.io/repos/sondr3/generator-statisk/badge.svg
+[coveralls-url]: https://coveralls.io/r/sondr3/generator-statisk

@@ -7,9 +7,9 @@ var helpers = require('yeoman-test');
 test.before(() => {
   return helpers.run(path.join(__dirname, '../generators/app'))
     .withPrompts({
-      projectName: 'static',
-      projectDescription: 'A static generator',
-      projectURL: 'github.com/someone/else',
+      projectName: 'statisk',
+      projectDescription: 'A statisk generator',
+      projectURL: 'github.com/olanordmann/statisk',
       authorName: 'Ola Nordmann',
       authorEmail: 'ola.nordmann@gmail.com'
     })
@@ -29,9 +29,9 @@ test('generates expected files', () => {
 test('creates package.json correctly', () => {
   assert.file('package.json');
   assert.jsonFileContent('package.json', {
-    name: 'static',
-    description: 'A static generator',
-    homepage: 'github.com/someone/else',
+    name: 'statisk',
+    description: 'A statisk generator',
+    homepage: 'github.com/olanordmann/statisk',
     author: {
       name: 'Ola Nordmann',
       email: 'ola.nordmann@gmail.com'
