@@ -13,5 +13,11 @@ module.exports = generators.Base.extend({
       this.templatePath('gitignore'),
       this.destinationPath('.gitignore')
     );
+  },
+
+  end: function () {
+    this.spawnCommandSync('git', ['init'], {
+      cwd: this.destinationPath()
+    });
   }
 });
