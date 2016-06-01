@@ -1,3 +1,15 @@
+<a name="0.1.1"></a>
+## 0.1.1
+> 2016-06-01
+
+The `git` generator now quietly initializes a git repo in your current directory
+and added support to add custom content to the README so the various generators
+can actually have a useful README.
+
+#### Changelog:
+* [[`2949a48b83`](https://github.com/sondr3/generator-statisk/commit/2949a48b83)] - Add support for custom content in the README
+* [[`99126eed20`](https://github.com/sondr3/generator-statisk/commit/99126eed20)] - Init git and skip bower install
+
 <a name="0.1.0"></a>
 ## 0.1.0
 > 2016-06-01
