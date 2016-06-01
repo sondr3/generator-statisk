@@ -17,6 +17,7 @@ $ gulp build [--prod]
 ```sh
 $ gulp deploy
 ```
+<%= content -%>
 
 ## Owner
 

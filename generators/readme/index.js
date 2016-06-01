@@ -29,6 +29,12 @@ module.exports = generators.Base.extend({
       required: true,
       desc: 'Author name'
     });
+
+    this.option('content', {
+      type: String,
+      required: false,
+      desc: 'Content to insert into README.md'
+    });
   },
 
   configuring: function () {
@@ -39,7 +45,8 @@ module.exports = generators.Base.extend({
         projectName: this.options.projectName,
         projectDescription: this.options.projectDescription,
         projectURL: this.options.projectURL,
-        authorName: this.options.authorName
+        authorName: this.options.authorName,
+        content: this.options.content
       }
     );
   }

@@ -16,7 +16,7 @@ module.exports = generators.Base.extend({
   },
 
   end: function () {
-    this.spawnCommandSync('git', ['init'], {
+    this.spawnCommandSync('git', ['init', '--quiet'], {
       cwd: this.destinationPath()
     });
   }

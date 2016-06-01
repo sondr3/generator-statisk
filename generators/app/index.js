@@ -11,6 +11,12 @@ module.exports = generators.Base.extend({
       required: false,
       desc: 'Compile your JS with Babel'
     });
+
+    this.option('readme', {
+      type: String,
+      required: false,
+      desc: 'Content to insert into README.md'
+    });
   },
 
   initializing: function () {
@@ -86,7 +92,8 @@ module.exports = generators.Base.extend({
         projectName: this.props.projectName,
         projectDescription: this.props.projectDescription,
         projectURL: this.props.projectURL,
-        authorName: this.props.authorName
+        authorName: this.props.authorName,
+        content: this.options.readme
       }
     }, {
       local: require.resolve('../readme')
