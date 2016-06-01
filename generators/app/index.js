@@ -87,6 +87,15 @@ module.exports = generators.Base.extend({
       local: require.resolve('../git')
     });
 
+    this.composeWith('statisk:gulp', {
+      options: {
+        uploading: this.props.uploading,
+        babel: this.props.babel
+      }
+    }, {
+      local: require.resolve('../gulp')
+    });
+
     this.composeWith('statisk:readme', {
       options: {
         projectName: this.props.projectName,
