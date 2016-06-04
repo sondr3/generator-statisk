@@ -8,8 +8,7 @@ test.before(() => {
   return helpers.run(path.join(__dirname, '../../generators/gulp'))
     .withOptions({
       'skip-install': true,
-      'uploading': 'None',
-      'babel': false
+      'uploading': 'None'
     })
     .toPromise();
 });

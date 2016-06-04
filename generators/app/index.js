@@ -6,12 +6,6 @@ module.exports = generators.Base.extend({
   constructor: function () {
     generators.Base.apply(this, arguments);
 
-    this.option('babel', {
-      type: Boolean,
-      required: false,
-      desc: 'Compile your JS with Babel'
-    });
-
     this.option('readme', {
       type: String,
       required: false,
@@ -51,11 +45,6 @@ module.exports = generators.Base.extend({
       message: 'How do you want to upload your site?',
       choices: ['Amazon S3', 'Rsync', 'Github Pages', 'None'],
       store: true
-    }, {
-      name: 'babel',
-      type: 'confirm',
-      message: 'Compile your JS with Babel',
-      when: this.options.babel === undefined
     }];
 
     return this.prompt(questions).then(function (props) {
@@ -89,8 +78,7 @@ module.exports = generators.Base.extend({
 
     this.composeWith('statisk:gulp', {
       options: {
-        uploading: this.props.uploading,
-        babel: this.props.babel
+        uploading: this.props.uploading
       }
     }, {
       local: require.resolve('../gulp')

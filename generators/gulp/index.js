@@ -39,6 +39,7 @@ module.exports = generators.Base.extend({
         'browser-sync': '^2.11.0',
         'del': '^2.2.0',
         'gulp': 'git://github.com/gulpjs/gulp.git#4.0',
+        'gulp-babel': '^6.1.2',
         'gulp-cache': '^0.4.1',
         'gulp-concat': '^2.6.0',
         'gulp-cssnano': '^2.1.0',
@@ -62,10 +63,6 @@ module.exports = generators.Base.extend({
         'yargs': '^4.7.0'
       });
 
-      if (this.options.babel) {
-        pkg.devDependencies['gulp-babel'] = '^6.1.2';
-      }
-
       if (this.options.uploading === 'Amazon S3') {
         pkg.devDependencies['gulp-awspublish'] = '^3.2.0';
         pkg.devDependencies['concurrent-transform'] = '^1.0.0';
@@ -88,9 +85,12 @@ module.exports = generators.Base.extend({
         this.destinationPath('gulpfile.js')
       );
 
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('tasks'),
-        this.destinationPath('gulp/tasks')
+        this.destinationPath('gulp/tasks'),
+        {
+          babel: this.options.babel
+        }
       );
 
       if (this.options.uploading === 'Amazon S3') {
