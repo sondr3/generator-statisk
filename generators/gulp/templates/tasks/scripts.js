@@ -22,7 +22,7 @@ gulp.task('scripts', () =>
     'src/assets/javascript/vendor.js',
     'src/assets/javascript/main.js'
   ])
-    .pipe(newer('.tmp/assets/javascript/index.js', {dest: path.scripts.dest, ext: '.js'}))
+    .pipe(newer('.tmp/assets/javascript/index.js', {dest: '.tmp/assets/javascript', ext: '.js'}))
     .pipe(when(!argv.prod, sourcemaps.init()))
     .pipe(babel({
       presets: ['es2015']

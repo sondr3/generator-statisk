@@ -18,10 +18,6 @@ test('creates gulpfile', () => {
   assert.file('gulpfile.js');
 });
 
-test('creates paths.json', () => {
-  assert.file('paths.json');
-});
-
 test('creates package.json', () => {
   assert.file('package.json');
 });
