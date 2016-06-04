@@ -8,7 +8,8 @@ test.before(() => {
   return helpers.run(path.join(__dirname, '../generators/gulp'))
     .withOptions({
       'skip-install': true,
-      'uploading': 'None'
+      'uploading': 'None',
+      'babel': false
     })
     .toPromise();
 });
@@ -27,7 +28,8 @@ test('creates gulp task files', () => {
     'gulp/tasks/images.js',
     'gulp/tasks/inject.js',
     'gulp/tasks/scripts.js',
-    'gulp/tasks/style.js'
+    'gulp/tasks/style.js',
+    'gulp/tasks/uploading.js'
   ]);
 });
 
@@ -42,6 +44,7 @@ test('does not contain uploading packages', () => {
   assert.noJsonFileContent('package.json', {
     devDependencies: {
       'gulp-awspublish': '',
+      'gulp-babel': '',
       'concurrent-transform': '',
       'gulp-rsync': '',
       'gulp-gh-pages': ''
@@ -57,6 +60,7 @@ test('contains default gulp tasks', () => {
     'clean',
     'rebuild',
     'build',
+    'deploy',
     'check',
     'default'
   ].forEach(function (task) {
@@ -75,7 +79,6 @@ test('package.json contains correct packages', () => {
       'browser-sync': '^2.11.0',
       'del': '^2.2.0',
       'gulp': 'git://github.com/gulpjs/gulp.git#4.0',
-      'gulp-babel': '^6.1.2',
       'gulp-cache': '^0.4.1',
       'gulp-concat': '^2.6.0',
       'gulp-cssnano': '^2.1.0',
@@ -100,3 +103,4 @@ test('package.json contains correct packages', () => {
     }
   });
 });
+

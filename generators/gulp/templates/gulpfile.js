@@ -30,6 +30,9 @@ gulp.task('build', gulp.series(
   gulp.series('html')
 ));
 
+// Deploy your site to the interwebs
+gulp.task('deploy', gulp.series('upload'));
+
 // 'gulp rebuild' -- WARNING: Erases your assets and built site, use only when
 // you need to do a complete rebuild
 gulp.task('rebuild', gulp.series('clean:dist', 'clean:assets', 'clean:images'));

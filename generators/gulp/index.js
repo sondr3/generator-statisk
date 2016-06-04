@@ -16,6 +16,12 @@ module.exports = generators.Base.extend({
       choices: ['Amazon S3', 'Rsync', 'Github Pages', 'None']
     });
 
+    this.option('babel', {
+      required: false,
+      default: false,
+      name: 'Use Babel'
+    });
+
     if (argv.amazon) {
       this.options.uploading = 'Amazon S3';
     }
@@ -39,7 +45,6 @@ module.exports = generators.Base.extend({
         'browser-sync': '^2.11.0',
         'del': '^2.2.0',
         'gulp': 'git://github.com/gulpjs/gulp.git#4.0',
-        'gulp-babel': '^6.1.2',
         'gulp-cache': '^0.4.1',
         'gulp-concat': '^2.6.0',
         'gulp-cssnano': '^2.1.0',
@@ -62,6 +67,10 @@ module.exports = generators.Base.extend({
         'shelljs': '^0.7.0',
         'yargs': '^4.7.0'
       });
+
+      if (this.options.babel) {
+        pkg.devDependencies['gulp-babel'] = '^6.1.2';
+      }
 
       if (this.options.uploading === 'Amazon S3') {
         pkg.devDependencies['gulp-awspublish'] = '^3.2.0';
@@ -89,6 +98,10 @@ module.exports = generators.Base.extend({
         this.templatePath('tasks'),
         this.destinationPath('gulp/tasks'),
         {
+          amazonS3: this.options.uploading === 'Amazon S3',
+          rsync: this.options.uploading === 'Rsync',
+          ghpages: this.options.uploading === 'Github Pages',
+          noUpload: this.options.uploading === 'None',
           babel: this.options.babel
         }
       );
