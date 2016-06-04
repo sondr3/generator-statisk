@@ -88,6 +88,16 @@ module.exports = generators.Base.extend({
         this.destinationPath('gulpfile.js')
       );
 
+      this.fs.copy(
+        this.templatePath('tasks'),
+        this.destinationPath('gulp/tasks')
+      );
+
+      this.fs.copy(
+        this.templatePath('paths.json'),
+        this.destinationPath('paths.json')
+      );
+
       if (this.options.uploading === 'Amazon S3') {
         this.fs.copyTpl(
           this.templatePath('aws-credentials.json'),

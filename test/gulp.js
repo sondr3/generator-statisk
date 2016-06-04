@@ -18,8 +18,26 @@ test('creates gulpfile', () => {
   assert.file('gulpfile.js');
 });
 
+test('creates paths.json', () => {
+  assert.file('paths.json');
+});
+
 test('creates package.json', () => {
   assert.file('package.json');
+});
+
+test('creates gulp task files', () => {
+  assert.file([
+    'gulp/tasks/browsersync.js',
+    'gulp/tasks/clean.js',
+    'gulp/tasks/copy.js',
+    'gulp/tasks/fonts.js',
+    'gulp/tasks/html.js',
+    'gulp/tasks/images.js',
+    'gulp/tasks/inject.js',
+    'gulp/tasks/scripts.js',
+    'gulp/tasks/style.js'
+  ]);
 });
 
 test('package.json contains correct packages', () => {
