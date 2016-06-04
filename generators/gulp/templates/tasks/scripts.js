@@ -21,7 +21,7 @@ gulp.task('scripts', () =>
   // NOTE: The order here is important since it's concatenated in order from
   // top to bottom, so you want vendor scripts etc on top
   gulp.src(path.scripts.src)
-    .pipe(newer('.tmp/assets/javascript/index.js', {dest: '.tmp/assets/javascript', ext: '.js'}))
+    .pipe(newer(path.scripts.index, {dest: path.scripts.dest, ext: '.js'}))
     .pipe(when(!argv.prod, sourcemaps.init()))
     .pipe(babel({
       presets: ['es2015']
@@ -37,7 +37,7 @@ gulp.task('scripts', () =>
     })))
     .pipe(when(argv.prod, rev()))
     .pipe(when(!argv.prod, sourcemaps.write('.')))
-    .pipe(when(argv.prod, gulp.dest('.tmp/assets/javascript')))
+    .pipe(when(argv.prod, gulp.dest(path.scripts.dest)))
     .pipe(when(argv.prod, when('*.js', gzip({append: true}))))
     .pipe(when(argv.prod, size({
       gzip: true,
