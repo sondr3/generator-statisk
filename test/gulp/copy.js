@@ -21,7 +21,7 @@ test('creates copy.js', () => {
 test('contains correct tasks', () => {
   [
     'copy:assets',
-    'copy:jekyll'
+    'copy:site'
   ].forEach(field => {
     assert.fileContent('gulp/tasks/copy.js', 'gulp.task(\'' + field);
   });

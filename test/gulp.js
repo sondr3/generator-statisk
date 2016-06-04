@@ -93,7 +93,7 @@ test('does not contain uploading packages', () => {
 test('contains default gulp tasks', () => {
   [
     'inject',
-    'build:jekyll',
+    'build:site',
     'assets',
     'clean',
     'rebuild',

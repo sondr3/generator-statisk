@@ -24,7 +24,7 @@ test('contains correct tasks', () => {
     'clean:images',
     'clean:dist',
     'clean:gzip',
-    'clean:jekyll'
+    'clean:site'
   ].forEach(field => {
     assert.fileContent('gulp/tasks/clean.js', 'gulp.task(\'' + field);
   });

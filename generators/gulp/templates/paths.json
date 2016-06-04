@@ -2,7 +2,7 @@
   "browsersync": {
     "server": [".tmp", "dist"],
     "watch": {
-      "jekyll": ["src/**/*.md", "src/**/*.html", "src/**/*.yml"],
+      "site": ["src/**/*.md", "src/**/*.html", "src/**/*.yml"],
       "text": ["src/**/*.xml", "src/**/*.txt"],
       "scripts": "src/assets/javascript/**/*.js",
       "styles": "src/assets/scss/**/*.scss",
@@ -14,14 +14,14 @@
     "images": [".tmp/assets/images", "dist/assets/images"],
     "dist": ["dist/", ".tmp/dist"],
     "gzip": ["dist/**/*.gz"],
-    "jekyll": [".tmp/src"]
+    "site": [".tmp/src"]
   },
   "copy": {
     "assets": {
       "src": ".tmp/assets/**/*",
       "dest": "dist/assets"
     },
-    "jekyll": {
+    "site": {
       "src": ".tmp/dist/**/*",
       "dest": "dist"
     }
@@ -50,7 +50,7 @@
       "dest": ".tmp/src/_layouts"
     }
   },
-  "jekyll": {
+  "site": {
     "src": ["src/**/*", "!src/assets/**/*", "!src/assets"],
     "dest": ".tmp/src"
   },

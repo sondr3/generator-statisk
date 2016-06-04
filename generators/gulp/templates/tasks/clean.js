@@ -15,6 +15,6 @@ gulp.task('clean:dist', () => {
 gulp.task('clean:gzip', () => {
   return del(path.clean.gzip);
 });
-gulp.task('clean:jekyll', () => {
-  return del(path.clean.jekyll);
+gulp.task('clean:site', () => {
+  return del(path.clean.site);
 });

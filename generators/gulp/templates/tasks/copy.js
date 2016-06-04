@@ -9,8 +9,8 @@ gulp.task('copy:assets', () =>
 );
 
 // 'gulp jekyll:copy' -- copies your processed Jekyll site to the dist directory
-gulp.task('copy:jekyll', () =>
-  gulp.src(path.copy.jekyll.src)
-    .pipe(gulp.dest(path.copy.jekyll.dest))
+gulp.task('copy:site', () =>
+  gulp.src(path.copy.site.src)
+    .pipe(gulp.dest(path.copy.site.dest))
 );
 

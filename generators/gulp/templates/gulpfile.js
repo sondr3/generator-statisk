@@ -8,8 +8,8 @@ const tasks = requireDir('./gulp/tasks', {recurse: true}); // eslint-disable-lin
 // 'gulp inject' -- injects your CSS and JS into either the header or the footer
 gulp.task('inject', gulp.parallel('inject:head', 'inject:footer'));
 
-// 'gulp build:jekyll' -- copies, builds, and then copies it again
-gulp.task('build:jekyll', gulp.series('jekyll:tmp', 'inject', 'jekyll', 'copy:jekyll'));
+// 'gulp build:site' -- copies, builds, and then copies it again
+gulp.task('build:site', gulp.series('site:tmp', 'inject', 'site', 'copy:site'));
 
 // 'gulp assets' -- cleans out your assets and rebuilds them
 // 'gulp assets --prod' -- cleans out your assets and rebuilds them with
@@ -20,13 +20,13 @@ gulp.task('assets', gulp.series(
 ));
 
 // 'gulp clean' -- erases your assets and gzipped files
-gulp.task('clean', gulp.series('clean:assets', 'clean:gzip', 'clean:dist', 'clean:jekyll'));
+gulp.task('clean', gulp.series('clean:assets', 'clean:gzip', 'clean:dist', 'clean:site'));
 
 // 'gulp build' -- same as 'gulp' but doesn't serve your site in your browser
 // 'gulp build --prod' -- same as above but with production settings
 gulp.task('build', gulp.series(
   gulp.series('clean:assets', 'clean:gzip'),
-  gulp.series('clean', 'assets', 'build:jekyll'),
+  gulp.series('clean', 'assets', 'build:site'),
   gulp.series('html')
 ));
 
@@ -34,8 +34,8 @@ gulp.task('build', gulp.series(
 // you need to do a complete rebuild
 gulp.task('rebuild', gulp.series('clean:dist', 'clean:assets', 'clean:images'));
 
-// 'gulp check' -- checks your Jekyll configuration for errors and lint your JS
-gulp.task('check', gulp.series('jekyll:doctor'));
+// 'gulp check' -- checks your site configuration for errors and lint your JS
+gulp.task('check', gulp.series('site:doctor'));
 
 // 'gulp' -- cleans your assets and gzipped files, creates your assets and
 // injects them into the templates, then builds your site, copied the assets

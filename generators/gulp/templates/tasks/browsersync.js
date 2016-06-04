@@ -19,8 +19,8 @@ gulp.task('serve', (done) => {
   done();
 
   // Watch various files for changes and do the needful
-  gulp.watch(path.browsersync.watch.jekyll, gulp.series('build:jekyll', reload));
-  gulp.watch(path.browsersync.watch.text, gulp.series('jekyll', reload));
+  gulp.watch(path.browsersync.watch.jekyll, gulp.series('build:site', reload));
+  gulp.watch(path.browsersync.watch.text, gulp.series('site', reload));
   gulp.watch(path.browsersync.watch.scripts, gulp.series('scripts', reload));
   gulp.watch(path.browsersync.watch.styles, gulp.series('styles', reload));
   gulp.watch(path.browsersync.watch.images, gulp.series('images', reload));
