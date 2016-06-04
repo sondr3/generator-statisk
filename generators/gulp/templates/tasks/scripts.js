@@ -11,8 +11,6 @@ const gzip = require('gulp-gzip');
 const rev = require('gulp-rev');
 const argv = require('yargs').argv;
 
-const path = require('../paths.json');
-
 // 'gulp scripts' -- creates a index.js file from your JavaScript files and
 // creates a Sourcemap for it
 // 'gulp scripts --prod' -- creates a index.js file from your JavaScript files,
@@ -20,8 +18,11 @@ const path = require('../paths.json');
 gulp.task('scripts', () =>
   // NOTE: The order here is important since it's concatenated in order from
   // top to bottom, so you want vendor scripts etc on top
-  gulp.src(path.scripts.src)
-    .pipe(newer(path.scripts.index, {dest: path.scripts.dest, ext: '.js'}))
+  gulp.src([
+    'src/assets/javascript/vendor.js',
+    'src/assets/javascript/main.js'
+  ])
+    .pipe(newer('.tmp/assets/javascript/index.js', {dest: path.scripts.dest, ext: '.js'}))
     .pipe(when(!argv.prod, sourcemaps.init()))
     .pipe(babel({
       presets: ['es2015']
@@ -37,11 +38,11 @@ gulp.task('scripts', () =>
     })))
     .pipe(when(argv.prod, rev()))
     .pipe(when(!argv.prod, sourcemaps.write('.')))
-    .pipe(when(argv.prod, gulp.dest(path.scripts.dest)))
+    .pipe(when(argv.prod, gulp.dest('.tmp/assets/javascript')))
     .pipe(when(argv.prod, when('*.js', gzip({append: true}))))
     .pipe(when(argv.prod, size({
       gzip: true,
       showFiles: true
     })))
-    .pipe(gulp.dest(path.scripts.dest))
+    .pipe(gulp.dest('.tmp/assets/javascript'))
 );

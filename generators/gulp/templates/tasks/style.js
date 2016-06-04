@@ -11,14 +11,12 @@ const gzip = require('gulp-gzip');
 const rev = require('gulp-rev');
 const argv = require('yargs').argv;
 
-const path = require('../paths.json');
-
 // 'gulp styles' -- creates a CSS file from your SASS, adds prefixes and
 // creates a Sourcemap
 // 'gulp styles --prod' -- creates a CSS file from your SASS, adds prefixes and
 // then minwhenies, gzips and cache busts it. Does not create a Sourcemap
 gulp.task('styles', () =>
-  gulp.src(path.styles.src)
+  gulp.src('src/assets/scss/style.scss')
     .pipe(when(!argv.prod, sourcemaps.init()))
     .pipe(sass({
       precision: 10
@@ -36,11 +34,11 @@ gulp.task('styles', () =>
     })))
     .pipe(when(argv.prod, rev()))
     .pipe(when(!argv.prod, sourcemaps.write('.')))
-    .pipe(when(argv.prod, gulp.dest(path.styles.dest)))
+    .pipe(when(argv.prod, gulp.dest('.tmp/assets/stylesheets')))
     .pipe(when(argv.prod, when('*.css', gzip({append: true}))))
     .pipe(when(argv.prod, size({
       gzip: true,
       showFiles: true
     })))
-    .pipe(gulp.dest(path.styles.dest))
+    .pipe(gulp.dest('.tmp/assets/stylesheets'))
 );

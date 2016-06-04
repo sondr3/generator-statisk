@@ -1,8 +1,6 @@
 const gulp = require('gulp');
 const browserSync = require('browser-sync').create();
 
-const path = require('../paths.json');
-
 // Function to properly reload your browser
 function reload(done) {
   browserSync.reload();
@@ -14,14 +12,14 @@ gulp.task('serve', (done) => {
   browserSync.init({
     // tunnel: true,
     // open: false,
-    server: path.browsersync.server
+    server: ['.tmp', 'dist'],
   });
   done();
 
   // Watch various files for changes and do the needful
-  gulp.watch(path.browsersync.watch.jekyll, gulp.series('build:site', reload));
-  gulp.watch(path.browsersync.watch.text, gulp.series('site', reload));
-  gulp.watch(path.browsersync.watch.scripts, gulp.series('scripts', reload));
-  gulp.watch(path.browsersync.watch.styles, gulp.series('styles', reload));
-  gulp.watch(path.browsersync.watch.images, gulp.series('images', reload));
+  gulp.watch(['src/**/*.md', 'src/**/*.html', 'src/**/*.yml'], gulp.series('build:site', reload));
+  gulp.watch(['src/**/*.xml', 'src/**/*.txt'], gulp.series('site', reload));
+  gulp.watch('src/assets/javascript/**/*.js', gulp.series('scripts', reload));
+  gulp.watch('src/assets/scss/**/*.scss', gulp.series('styles', reload));
+  gulp.watch('src/assets/images/**/*', gulp.series('images', reload));
 });

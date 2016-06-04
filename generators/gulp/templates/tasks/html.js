@@ -5,12 +5,10 @@ const gzip = require('gulp-gzip');
 const htmlmin = require('gulp-htmlmin');
 const argv = require('yargs').argv;
 
-const path = require('../paths.json');
-
 // 'gulp html' -- does nothing
 // 'gulp html --prod' -- minifies and gzips our HTML files
 gulp.task('html', () =>
-  gulp.src(path.html.src)
+  gulp.src('dist/**/*.html')
     .pipe(when(argv.prod, htmlmin({
       removeComments: true,
       collapseWhitespace: true,
@@ -25,5 +23,5 @@ gulp.task('html', () =>
       title: 'gzipped HTML',
       gzip: true
     })))
-    .pipe(when(argv.prod, gulp.dest(path.html.dest)))
+    .pipe(when(argv.prod, gulp.dest('dist')))
 );
