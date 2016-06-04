@@ -25,8 +25,8 @@ gulp.task('clean', gulp.series('clean:assets', 'clean:gzip', 'clean:dist', 'clea
 // 'gulp build' -- same as 'gulp' but doesn't serve your site in your browser
 // 'gulp build --prod' -- same as above but with production settings
 gulp.task('build', gulp.series(
-  gulp.series('clean:assets', 'clean:gzip'),
-  gulp.series('clean', 'assets', 'build:site'),
+  gulp.series('clean'),
+  gulp.series('assets', 'build:site'),
   gulp.series('html')
 ));
 
