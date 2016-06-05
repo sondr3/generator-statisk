@@ -9,7 +9,10 @@
     "url": "github.com/sondr3"
   },
   "files": [
-    "generators"
+    "generators",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
   ],
   "main": "generators/index.js",
   "keywords": [
