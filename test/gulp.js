@@ -52,6 +52,10 @@ test('does not contain uploading packages', () => {
   });
 });
 
+test('does not contain deploy task', () => {
+  assert.noFileContent('gulpfile.js', 'gulp.task(\'deploy');
+});
+
 test('contains default gulp tasks', () => {
   [
     'inject',
@@ -60,7 +64,6 @@ test('contains default gulp tasks', () => {
     'clean',
     'rebuild',
     'build',
-    'deploy',
     'check',
     'default'
   ].forEach(function (task) {

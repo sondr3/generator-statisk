@@ -89,9 +89,12 @@ module.exports = generators.Base.extend({
     },
 
     gulpfile: function () {
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('gulpfile.js'),
-        this.destinationPath('gulpfile.js')
+        this.destinationPath('gulpfile.js'),
+        {
+          noUpload: this.options.uploading === 'None'
+        }
       );
 
       this.fs.copyTpl(
