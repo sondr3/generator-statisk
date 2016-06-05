@@ -42,6 +42,7 @@ module.exports = generators.Base.extend({
       pkg.devDependencies = pkg.devDependencies || {};
       _.extend(pkg.devDependencies, {
         'autoprefixer': '^6.2.3',
+        'babel-preset-es2015': '^6.9.0',
         'browser-sync': '^2.11.0',
         'del': '^2.2.0',
         'gulp': 'git://github.com/gulpjs/gulp.git#4.0',
@@ -64,6 +65,7 @@ module.exports = generators.Base.extend({
         'gulp-sourcemaps': '^1.3.0',
         'gulp-uglify': '^1.5.1',
         'gulp-uncss': '^1.0.0',
+        'require-dir': '^0.3.0',
         'shelljs': '^0.7.0',
         'yargs': '^4.7.0'
       });
