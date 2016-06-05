@@ -1,3 +1,26 @@
+<a name="0.2.0"></a>
+## 0.2.0
+> 2016-06-05
+
+Added the gulp subgenerator and can now rip it out of my other generators. Major
+changes from how it used to be is that the tasks are split up into separate
+files. I initially wanted to have the paths in their own paths file but found it
+really cumbersome and not what I wanted after all.
+
+Also did some minor fixups of the cleanup during the default `gulp build` task.
+
+#### Changelog:
+* [[`0e34685faa`](https://github.com/sondr3/generator-statisk/commit/0e34685faa)] - The deploy task should only be there when needed
+* [[`df347cab7b`](https://github.com/sondr3/generator-statisk/commit/df347cab7b)] - Add uploading, fix babel and ESlint
+* [[`98b40459e7`](https://github.com/sondr3/generator-statisk/commit/98b40459e7)] - Babel is included by default...
+* [[`e1b22cc5eb`](https://github.com/sondr3/generator-statisk/commit/e1b22cc5eb)] - Fix redundant cleaning of files
+* [[`3c5d7d39ed`](https://github.com/sondr3/generator-statisk/commit/3c5d7d39ed)] - Fix errors with removing paths.json
+* [[`e8411f3a20`](https://github.com/sondr3/generator-statisk/commit/e8411f3a20)] - ***Revert*** "using a paths.json file, I don't like it"
+* [[`dd85a0b628`](https://github.com/sondr3/generator-statisk/commit/dd85a0b628)] - First pass at making build commands generic
+* [[`308919fd35`](https://github.com/sondr3/generator-statisk/commit/308919fd35)] - Fix some paths not being correctly applied
+* [[`a0aff79505`](https://github.com/sondr3/generator-statisk/commit/a0aff79505)] - Add tests for Gulp tasks and files
+* [[`abed406bec`](https://github.com/sondr3/generator-statisk/commit/abed406bec)] - Initial commit of gulp subgenerator
+
 <a name="0.1.1"></a>
 ## 0.1.1
 > 2016-06-01
