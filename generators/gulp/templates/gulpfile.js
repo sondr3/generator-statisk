@@ -21,15 +21,11 @@ gulp.task('assets', gulp.series(
 ));
 
 // 'gulp clean' -- erases your assets and gzipped files
-gulp.task('clean', gulp.series('clean:assets', 'clean:gzip', 'clean:dist', 'clean:site'));
+gulp.task('clean', gulp.parallel('clean:assets', 'clean:gzip', 'clean:dist', 'clean:site'));
 
 // 'gulp build' -- same as 'gulp' but doesn't serve your site in your browser
 // 'gulp build --prod' -- same as above but with production settings
-gulp.task('build', gulp.series(
-  gulp.series('clean'),
-  gulp.series('assets', 'build:site'),
-  gulp.series('html')
-));
+gulp.task('build', gulp.series('clean', 'assets', 'build:site', 'html'));
 
 <% if (!noUpload) { -%>
 // You can also just use 'gulp upload' but this way you can see all the main
@@ -39,7 +35,7 @@ gulp.task('deploy', gulp.series('upload'));
 
 // 'gulp rebuild' -- WARNING: Erases your assets and built site, use only when
 // you need to do a complete rebuild
-gulp.task('rebuild', gulp.series('clean:dist', 'clean:assets', 'clean:images'));
+gulp.task('rebuild', gulp.series('clean', 'clean:images'));
 
 // 'gulp check' -- checks your site configuration for errors and lint your JS
 gulp.task('check', gulp.series('site:doctor'));
@@ -48,6 +44,4 @@ gulp.task('check', gulp.series('site:doctor'));
 // injects them into the templates, then builds your site, copied the assets
 // into their directory and serves the site
 // 'gulp --prod' -- same as above but with production settings
-gulp.task('default', gulp.series(
-  gulp.series('build', 'serve')
-));
+gulp.task('default', gulp.series('build', 'serve'));
