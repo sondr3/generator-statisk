@@ -1,3 +1,13 @@
+<a name="0.2.1"></a>
+## 0.2.1
+> 2016-06-05
+
+Added some packages that I forgot to add when changing the gulpfiles to be
+separate files.
+
+#### Changelog:
+* [[`69ce502d14`](https://github.com/sondr3/generator-statisk/commit/69ce502d14)] - Forgot to add some packages
+
 <a name="0.2.0"></a>
 ## 0.2.0
 > 2016-06-05
@@ -20,7 +30,7 @@ Also did some minor fixups of the cleanup during the default `gulp build` task.
 * [[`308919fd35`](https://github.com/sondr3/generator-statisk/commit/308919fd35)] - Fix some paths not being correctly applied
 * [[`a0aff79505`](https://github.com/sondr3/generator-statisk/commit/a0aff79505)] - Add tests for Gulp tasks and files
 * [[`abed406bec`](https://github.com/sondr3/generator-statisk/commit/abed406bec)] - Initial commit of gulp subgenerator
-
+.
 <a name="0.1.1"></a>
 ## 0.1.1
 > 2016-06-01
