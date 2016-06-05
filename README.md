@@ -1,5 +1,10 @@
-# generator-statisk [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
+# generator-statisk [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage percentage][coveralls-image]][coveralls-url]
 > The base for my statisk site Yeoman generators
+
+## About
+This is the base generator that I build my other generators on, currently
+[generator-jekyllized][jekyllized] and [generator-hugo][hugo], this isn't meant
+to be installed as a standalone package.
 
 ## Installation
 
@@ -16,23 +21,15 @@ Then generate your new project:
 yo statisk
 ```
 
-## Getting To Know Yeoman
-
- * Yeoman has a heart of gold.
- * Yeoman is a person with feelings and opinions, but is very easy to work with.
- * Yeoman can be too opinionated at times but is easily convinced not to be.
- * Feel free to [learn more about Yeoman](http://yeoman.io/).
-
 ## License
 
 MIT © [Sondre Nilsen](github.com/sondr3)
 
-
+[jekyllized]: https://github.com/sondr3/generator-jekyllized
+[hugo]: https://github.com/sondr3/generator-hugo
 [npm-image]: https://badge.fury.io/js/generator-statisk.svg
 [npm-url]: https://npmjs.org/package/generator-statisk
 [travis-image]: https://travis-ci.org/sondr3/generator-statisk.svg?branch=master
 [travis-url]: https://travis-ci.org/sondr3/generator-statisk
-[daviddm-image]: https://david-dm.org/sondr3/generator-statisk.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/sondr3/generator-statisk
 [coveralls-image]: https://coveralls.io/repos/sondr3/generator-statisk/badge.svg
 [coveralls-url]: https://coveralls.io/r/sondr3/generator-statisk
