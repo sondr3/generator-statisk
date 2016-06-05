@@ -14,7 +14,7 @@
     "CHANGELOG.md",
     "LICENSE"
   ],
-  "main": "generators/index.js",
+  "main": "generators/app/index.js",
   "keywords": [
     "",
     "yeoman-generator"
