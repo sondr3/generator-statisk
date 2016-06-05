@@ -5,8 +5,12 @@ var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
 
 test.before(() => {
+  const pkg = require('../package.json');
+
   return helpers.run(path.join(__dirname, '../generators/gulp'))
     .withOptions({
+      'name': pkg.name,
+      'version': pkg.version,
       'skip-install': true,
       'uploading': 'None',
       'babel': false
@@ -19,8 +23,9 @@ test('creates gulpfile', () => {
 });
 
 test('creates comment about creation', () => {
+  const pkg = require('../package.json');
   const date = (new Date).toISOString().split('T')[0]; // eslint-disable-line
-  assert.fileContent('gulpfile.js', '// generated on ' + date);
+  assert.fileContent('gulpfile.js', '// generated on ' + date + ' using ' + pkg.name + ' ' + pkg.version);
 });
 
 test('creates gulp task files', () => {
