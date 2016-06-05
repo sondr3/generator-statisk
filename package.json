@@ -20,11 +20,8 @@
     "yeoman-generator"
   ],
   "dependencies": {
-    "chalk": "^1.0.0",
     "lodash": "^4.13.1",
-    "yargs": "^4.7.1",
-    "yeoman-generator": "^0.23.0",
-    "yosay": "^1.0.0"
+    "yeoman-generator": "^0.23.0"
   },
   "devDependencies": {
     "ava": "^0.15.1",
