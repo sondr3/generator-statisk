@@ -20,10 +20,18 @@ module.exports = generators.Base.extend({
       default: false,
       name: 'Use Babel'
     });
-  },
 
-  initializing: function () {
-    this.pkg = require('../../package.json');
+    this.option('name', {
+      required: true,
+      name: 'Generator name',
+      desc: 'Generator used to generate gulpfile'
+    });
+
+    this.option('version', {
+      required: true,
+      name: 'Generator version',
+      desc: 'Version of generator used to generate gulpfile'
+    });
   },
 
   writing: {
@@ -87,8 +95,8 @@ module.exports = generators.Base.extend({
         this.destinationPath('gulpfile.js'),
         {
           date: (new Date).toISOString().split('T')[0], // eslint-disable-line
-          name: this.pkg.name,
-          version: this.pkg.version,
+          name: this.options.name,
+          version: this.options.version,
           noUpload: this.options.uploading === 'None'
         }
       );
