@@ -1,3 +1,13 @@
+<a name="0.2.2"></a>
+## 0.2.2
+> 2016-06-05
+
+Added the date and version of the generator that was used to generate the
+gulpfile.
+
+#### Changelog:
+* [[`182e5afb44`](https://github.com/sondr3/generator-statisk/commit/182e5afb44)] - Add version and date to the gulpfile
+
 <a name="0.2.1"></a>
 ## 0.2.1
 > 2016-06-05
