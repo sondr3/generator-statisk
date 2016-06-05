@@ -1,3 +1,4 @@
+// generated on <%= date %> using <%= name %> <%= version %>
 'use strict';
 
 const gulp = require('gulp');

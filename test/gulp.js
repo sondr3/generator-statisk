@@ -18,6 +18,11 @@ test('creates gulpfile', () => {
   assert.file('gulpfile.js');
 });
 
+test('creates comment about creation', () => {
+  const date = (new Date).toISOString().split('T')[0]; // eslint-disable-line
+  assert.fileContent('gulpfile.js', '// generated on ' + date);
+});
+
 test('creates gulp task files', () => {
   assert.file([
     'gulp/tasks/browsersync.js',

@@ -30,7 +30,7 @@ Also did some minor fixups of the cleanup during the default `gulp build` task.
 * [[`308919fd35`](https://github.com/sondr3/generator-statisk/commit/308919fd35)] - Fix some paths not being correctly applied
 * [[`a0aff79505`](https://github.com/sondr3/generator-statisk/commit/a0aff79505)] - Add tests for Gulp tasks and files
 * [[`abed406bec`](https://github.com/sondr3/generator-statisk/commit/abed406bec)] - Initial commit of gulp subgenerator
-.
+
 <a name="0.1.1"></a>
 ## 0.1.1
 > 2016-06-01

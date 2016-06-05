@@ -35,6 +35,10 @@ module.exports = generators.Base.extend({
     }
   },
 
+  initializing: function () {
+    this.pkg = require('../../package.json');
+  },
+
   writing: {
     package: function () {
       var pkg = this.fs.readJSON(this.destinationPath('package.json'), {});
@@ -95,6 +99,9 @@ module.exports = generators.Base.extend({
         this.templatePath('gulpfile.js'),
         this.destinationPath('gulpfile.js'),
         {
+          date: (new Date).toISOString().split('T')[0], // eslint-disable-line
+          name: this.pkg.name,
+          version: this.pkg.version,
           noUpload: this.options.uploading === 'None'
         }
       );
