@@ -1,3 +1,4 @@
+'use strict';
 const gulp = require('gulp');
 const when = require('gulp-if');
 const size = require('gulp-size');

@@ -1,5 +1,4 @@
 'use strict';
-
 <% if (amazonS3) { -%>
 const fs = require('fs');
 const gulp = require('gulp');

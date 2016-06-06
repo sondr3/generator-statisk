@@ -1,3 +1,4 @@
+'use strict';
 const gulp = require('gulp');
 
 // 'gulp assets:copy' -- copies the assets into the dist directory, needs to be
