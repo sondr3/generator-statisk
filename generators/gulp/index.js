@@ -16,8 +16,7 @@ module.exports = generators.Base.extend({
     });
 
     this.option('babel', {
-      required: false,
-      default: false,
+      required: true,
       name: 'Use Babel'
     });
 
