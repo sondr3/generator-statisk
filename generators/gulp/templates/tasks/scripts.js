@@ -1,7 +1,7 @@
 const gulp = require('gulp');
 const when = require('gulp-if');
-const concat = require('gulp-concat');
-<% if (babel) { -%>const babel = require('gulp-babel');<% } -%>
+const concat = require('gulp-concat');<% if (babel) { %>
+const babel = require('gulp-babel');<% } %>
 const uglify = require('gulp-uglify');
 const newer = require('gulp-newer');
 const rename = require('gulp-rename');
@@ -23,12 +23,10 @@ gulp.task('scripts', () =>
     'src/assets/javascript/main.js'
   ])
     .pipe(newer('.tmp/assets/javascript/index.js', {dest: '.tmp/assets/javascript', ext: '.js'}))
-    .pipe(when(!argv.prod, sourcemaps.init()))
-    <% if (babel) { -%>
+    .pipe(when(!argv.prod, sourcemaps.init()))<% if (babel) { %>
     .pipe(babel({
       presets: ['es2015']
-    }))
-    <% } -%>
+    }))<% } %>
     .pipe(concat('index.js'))
     .pipe(size({
       showFiles: true
