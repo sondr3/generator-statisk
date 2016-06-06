@@ -18,6 +18,13 @@ test('creates package.json file', () => {
   assert.file('package.json');
 });
 
+test('does not create credentials files', () => {
+  assert.noFile([
+    'aws-credentials.json',
+    'rsync-credentials.json'
+  ]);
+});
+
 test('contain correct uploading packages', () => {
   assert.jsonFileContent('package.json', {
     devDependencies: {
