@@ -1,3 +1,25 @@
+<a name="0.3.0"></a>
+## 0.3.0
+> 2016-06-06
+
+Removed a bunch of unused and unneeded parts, packages and dependencies from
+both the generator and the generated project. Also simplified a few of the main
+tasks in `gulpfile.js` because I was being overly redundant with `gulp.series`.
+Also fixed a few problems with newlines when choosing gulp-babel and fixed the
+comment being generated in the `gulpfile.js`.
+
+#### Changelog:
+* [[`c4a51142ea`](https://github.com/sondr3/generator-statisk/commit/c4a51142ea)] - Minor change to options for babel
+* [[`19138a4163`](https://github.com/sondr3/generator-statisk/commit/19138a4163)] - Fix newline issues with EJS templates
+* [[`3260158635`](https://github.com/sondr3/generator-statisk/commit/3260158635)] - Remove unused packages
+* [[`32550b53d6`](https://github.com/sondr3/generator-statisk/commit/32550b53d6)] - Update test for comment about creation etc
+* [[`d6f31a4eca`](https://github.com/sondr3/generator-statisk/commit/d6f31a4eca)] - Fix generating the name and version in gulpfile
+* [[`a4d7a8cf88`](https://github.com/sondr3/generator-statisk/commit/a4d7a8cf88)] - Simplify gulp tasks
+* [[`ab47b46497`](https://github.com/sondr3/generator-statisk/commit/ab47b46497)] - Fix "main" keyword in package.json
+* [[`f6e3800b45`](https://github.com/sondr3/generator-statisk/commit/f6e3800b45)] - Remove unused dependencies
+* [[`f61965ba9b`](https://github.com/sondr3/generator-statisk/commit/f61965ba9b)] - Remove unneeded parts of the generator
+* [[`30373fc090`](https://github.com/sondr3/generator-statisk/commit/30373fc090)] - Update Readme \[ci skip\]
+
 <a name="0.2.2"></a>
 ## 0.2.2
 > 2016-06-05
