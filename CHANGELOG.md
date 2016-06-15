@@ -1,3 +1,16 @@
+<a name="0.3.1"></a>
+## 0.3.1
+> 2016-06-16
+
+Fixed a missing assert for the tests and added `use strict` to all the gulp
+tasks and made the `doctor` command generic so it can be reused between
+different generators.
+
+#### Changelog:
+* [[`c5fa4c1c63`](https://github.com/sondr3/generator-statisk/commit/c5fa4c1c63)] - Make site:doctor generic to be used with Hugo
+* [[`c18cdf825a`](https://github.com/sondr3/generator-statisk/commit/c18cdf825a)] - Add 'use strict'; to all gulp tasks
+* [[`3a2914765c`](https://github.com/sondr3/generator-statisk/commit/3a2914765c)] - Add missing assert for missing credential files
+
 <a name="0.3.0"></a>
 ## 0.3.0
 > 2016-06-06
