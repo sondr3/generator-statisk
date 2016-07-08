@@ -1,3 +1,12 @@
+<a name="0.3.2"></a>
+## 0.3.2
+> 2016-07-08
+
+Fixed a typo when requiring `gulp-gh-pages`.
+
+#### Changelog:
+* [[`07af84a5e6`](https://github.com/sondr3/generator-statisk/commit/07af84a5e6)] - Add missing hypen to fix requiring a package
+
 <a name="0.3.1"></a>
 ## 0.3.1
 > 2016-06-16
