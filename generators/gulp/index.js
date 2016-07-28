@@ -90,7 +90,7 @@ module.exports = generators.Base.extend({
         this.templatePath('gulpfile.js'),
         this.destinationPath('gulpfile.js'),
         {
-          date: (new Date).toISOString().split('T')[0], // eslint-disable-line
+          date: (new Date()).toISOString().split('T')[0],
           name: this.options.name,
           version: this.options.version,
           noUpload: this.options.uploading === 'None'
