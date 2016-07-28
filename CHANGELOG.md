@@ -1,3 +1,17 @@
+<a name="0.4.0"></a>
+## 0.4.0
+> 2016-07-28
+
+Made sure dotfiles are always uploaded so that Apache etc can use them and added
+support for BrowserSync to automatically inject CSS changes to the browser.
+Updated packages and fixed some linting errors.
+
+* [[`e47385a6cc`](https://github.com/sondr3/generator-statisk/commit/e47385a6cc)] - Fix linting errors
+* [[`541f8bc03c`](https://github.com/sondr3/generator-statisk/commit/541f8bc03c)] - Always upload dotfiles
+* [[`9ccf019b60`](https://github.com/sondr3/generator-statisk/commit/9ccf019b60)] - Update packages
+* [[`fc7bda95e4`](https://github.com/sondr3/generator-statisk/commit/fc7bda95e4)] - Fix injecting CSS changes into browser
+* [[`5ccc0693ee`](https://github.com/sondr3/generator-statisk/commit/5ccc0693ee)] - Deploy dotfiles with rsync for Apache etc
+
 <a name="0.3.2"></a>
 ## 0.3.2
 > 2016-07-08
