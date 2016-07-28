@@ -13,15 +13,20 @@ test.before(() => {
     .toPromise();
 });
 
-test('creates browsersync.js', () => {
-  assert.file('gulp/tasks/browsersync.js');
+test('creates assets.js', () => {
+  assert.file('gulp/tasks/assets.js');
 });
 
 test('contains correct tasks', () => {
   [
-    'function reload',
-    'gulp.task(\'serve'
-  ].forEach(field => {
-    assert.fileContent('gulp/tasks/browsersync.js', field);
+    'scripts',
+    'styles',
+    'serve'
+  ].forEach(function (task) {
+    assert.fileContent('gulp/tasks/assets.js', 'gulp.task(\'' + task);
   });
+});
+
+test('contains reload function', () => {
+  assert.fileContent('gulp/tasks/assets.js', 'function reload');
 });

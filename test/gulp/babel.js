@@ -18,8 +18,8 @@ test('creates gulpfile.js', () => {
   assert.file('gulpfile.js');
 });
 
-test('creates scripts.js', () => {
-  assert.file('gulp/tasks/scripts.js');
+test('creates assets.js', () => {
+  assert.file('gulp/tasks/assets.js');
 });
 
 test('contains babel', () => {
@@ -27,7 +27,7 @@ test('contains babel', () => {
     'const babel',
     '.pipe(babel({'
   ].forEach(field => {
-    assert.fileContent('gulp/tasks/scripts.js', field);
+    assert.fileContent('gulp/tasks/assets.js', field);
   });
 });
 
