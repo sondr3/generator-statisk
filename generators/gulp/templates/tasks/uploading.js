@@ -15,7 +15,7 @@ gulp.task('upload', () => {
     'Cache-Control': 'max-age=315360000, no-transform, public'
   };
 
-  return gulp.src('dist/**/*')
+  return gulp.src('dist/**/*', {dot: true})
     .pipe(awspublish.gzip())
     .pipe(parallelize(publisher.publish(headers), 30))
     .pipe(publisher.cache())
@@ -47,7 +47,7 @@ const ghpages = require('gulp-gh-pages');
 
 // 'gulp deploy' -- pushes your dist folder to Github
 gulp.task('upload', () => {
-  return gulp.src('dist/**/*')
+  return gulp.src('dist/**/*', {dot: true})
     .pipe($.ghPages());
 });
 <% } -%>
