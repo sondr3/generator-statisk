@@ -1,3 +1,12 @@
+<a name="0.4.1"></a>
+## 0.4.1
+> 2016-08-02
+
+Fix a syntax error in `uploading.js` so you can now upload again to GitHub
+Pages.
+
+* [[`5808408d1f`](https://github.com/sondr3/generator-statisk/commit/5808408d1f)] - Fix syntax error in uploading.js
+
 <a name="0.4.0"></a>
 ## 0.4.0
 > 2016-07-28
