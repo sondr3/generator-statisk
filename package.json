@@ -1,6 +1,6 @@
 {
   "name": "generator-statisk",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "The base for my statisk site Yeoman generators",
   "homepage": "github.com/sondr3/generator-statisk",
   "author": {
