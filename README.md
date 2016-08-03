@@ -3,12 +3,16 @@
 
 ## About
 This is the base generator that I build my other generators on, currently
-[generator-jekyllized][jekyllized] and [generator-hugo][hugo], this isn't meant
-to be installed as a standalone package.
+[generator-jekyllized][jekyllized]. It provides a bare bones gulp setup that can
+be used to develop other generators or use in your project to build and optimize
+your assets and such, though it'll probably require tinkering with the paths
+used in the gulp tasks.
 
 ## Installation
 
-First, install [Yeoman](http://yeoman.io) and generator-statisk using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
+First, install [Yeoman](http://yeoman.io) and generator-statisk using
+[npm](https://www.npmjs.com/) (we assume you have pre-installed
+[node.js](https://nodejs.org/)).
 
 ```bash
 npm install -g yo
