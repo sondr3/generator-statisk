@@ -1,3 +1,15 @@
+<a name="0.5.0"></a>
+## 0.5.0
+> 2016-08-24
+
+The previous package that was used to publish project to GitHub hasn't been
+maintained for quite a while and have a very annoying bug when it comes to
+pushing to personal/organisation repositories, moved to a new package that
+should fix this problem.
+
+* [[`2023713786`](https://github.com/sondr3/generator-statisk/commit/2023713786)] - Move to an actually maintained gh-pages package
+* [[`cbe7904c0f`](https://github.com/sondr3/generator-statisk/commit/cbe7904c0f)] - Fix test after renaming variable
+
 <a name="0.4.2"></a>
 ## 0.4.2
 > 2016-08-02
