@@ -79,7 +79,7 @@ module.exports = generators.Base.extend({
       }
 
       if (this.options.uploading === 'Github Pages') {
-        pkg.devDependencies['gulp-gh-pages'] = '^0.5.2';
+        pkg.devDependencies['gh-pages'] = '^0.11.0';
       }
 
       this.fs.writeJSON(this.destinationPath('package.json'), pkg);
