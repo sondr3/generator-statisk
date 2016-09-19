@@ -119,14 +119,28 @@ gulp.task('html', () =>
 // 'gulp images' -- optimizes and caches your images
 gulp.task('images', () =>
   gulp.src('src/assets/images/**/*')
-    .pipe(cache(imagemin([
+    .pipe($.cache($.imagemin([
       imagemin.gifsicle({interlaced: true}),
       imagemin.jpegtran({progressive: true}),
       imagemin.optipng(),
       imagemin.svgo({plugins: [{cleanupIDs: false}]})
     ])))
     .pipe(gulp.dest('.tmp/assets/images'))
-    .pipe(size({title: 'images'}))
+    .pipe($.size({title: 'images'}))
+);
+
+// 'gulp inject:head' -- injects our style.css file into the head of our HTML
+gulp.task('inject:head', () =>
+  gulp.src('.tmp/src/_includes/head.html')
+    .pipe($.inject(gulp.src('.tmp/assets/stylesheets/*.css'), {ignorePath: '.tmp'}))
+    .pipe(gulp.dest('.tmp/src/_includes'))
+);
+
+// 'gulp inject:footer' -- injects our index.js file into the end of our HTML
+gulp.task('inject:footer', () =>
+  gulp.src('.tmp/src/_layouts/default.html')
+    .pipe($.inject(gulp.src('.tmp/assets/javascript/*.js'), {ignorePath: '.tmp'}))
+    .pipe(gulp.dest('.tmp/src/_layouts'))
 );
 
 // 'gulp assets:copy' -- copies the assets into the dist directory, needs to be
