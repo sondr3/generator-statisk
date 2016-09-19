@@ -1,13 +1,16 @@
 // generated on <%= date %> using <%= name %> <%= version %>
 'use strict';
 
+-<%  if (amazonS3 || rsync) { -%>
+const fs = require('fs');-<% } -%>
 const argv = require('yargs').argv;
 const autoprefixer = require('autoprefixer');<% if (babel) { %>
 const babel = require('gulp-babel');<% } %>
 const browserSync = require('browser-sync').create();
 const del = require('del');
 const gulp = require('gulp');
-const $ = require('gulp-load-plugins')();
+const $ = require('gulp-load-plugins')();<% if (amazonS3) { %>
+const parallelize = require('concurrent-transform');<% } %>
 
 // Various tasks for deleting assets etc
 gulp.task('clean:assets', () => {
@@ -186,6 +189,62 @@ gulp.task('serve', (done) => {
   gulp.watch('src/assets/images/**/*', gulp.series('images', reload));
 });
 
+<% if (amazonS3) { -%>
+const gulp = require('gulp');
+const parallelize = require('concurrent-transform');
+const awspublish = require('gulp-awspublish');
+
+// 'gulp deploy' -- reads from your AWS Credentials file, creates the correct
+// headers for your files and uploads them to S3
+gulp.task('upload', () => {
+  var credentials = JSON.parse(fs.readFileSync('aws-credentials.json', 'utf8'));
+  var publisher = $.awspublish.create(credentials);
+
+  var headers = {
+    'Cache-Control': 'max-age=315360000, no-transform, public'
+  };
+
+  return gulp.src('dist/**/*', {dot: true})
+    .pipe($.awspublish.gzip())
+    .pipe(parallelize(publisher.publish(headers), 30))
+    .pipe(publisher.cache())
+    .pipe(publisher.sync())
+    .pipe($.awspublish.reporter());
+  });
+<% } -%><% if (rsync) { -%>
+const fs = require('fs');
+const gulp = require('gulp');
+const rsync = require('gulp-rsync');
+
+// 'gulp deploy' -- reads from your Rsync credentials file and incrementally
+// uploads your site to your server
+gulp.task('upload', () => {
+  var credentials = JSON.parse(fs.readFileSync('rsync-credentials.json', 'utf8'));
+
+  return gulp.src('dist/**', {dot: true})
+    .pipe($.rsync({
+      root: 'dist',
+      hostname: credentials.hostname,
+      username: credentials.username,
+      destination: credentials.destination,
+      incremental: true
+  }));
+});
+<% } -%><% if (ghpages) { -%>
+const gulp = require('gulp');
+const path = require('path');
+const ghPages = require('gh-pages');
+
+// 'gulp deploy' -- pushes your dist folder to Github
+gulp.task('upload', (done) => {
+  ghPages.publish(path.join(__dirname + '/../../', 'dist'), {
+    dotfiles: true,
+    // branch: "master"
+  },
+  done);
+});
+<% } -%>
+
 // 'gulp inject' -- injects your CSS and JS into either the header or the footer
 gulp.task('inject', gulp.parallel('inject:head', 'inject:footer'));
 
@@ -207,12 +266,6 @@ gulp.task('clean', gulp.parallel('clean:assets', 'clean:gzip', 'clean:dist', 'cl
 // 'gulp build --prod' -- same as above but with production settings
 gulp.task('build', gulp.series('clean', 'assets', 'build:site', 'html'));
 
-<% if (!noUpload) { -%>
-// You can also just use 'gulp upload' but this way you can see all the main
-// tasks in the gulpfile instead of having to hunt for the deploy tasks
-gulp.task('deploy', gulp.series('upload'));
-
-<% } -%>
 // 'gulp rebuild' -- WARNING: Erases your assets and built site, use only $.if
 // you need to do a complete rebuild
 gulp.task('rebuild', gulp.series('clean', 'clean:images'));
