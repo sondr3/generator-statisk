@@ -4,13 +4,13 @@
 -<%  if (amazonS3 || rsync) { -%>
 const fs = require('fs');-<% } -%>
 const argv = require('yargs').argv;
-const autoprefixer = require('autoprefixer');<% if (babel) { %>
-const babel = require('gulp-babel');<% } %>
+const autoprefixer = require('autoprefixer');
 const browserSync = require('browser-sync').create();
 const del = require('del');
 const gulp = require('gulp');
 const $ = require('gulp-load-plugins')();<% if (amazonS3) { %>
-const parallelize = require('concurrent-transform');<% } %>
+const parallelize = require('concurrent-transform');<% } %><% if (ghpages) { %>
+const ghPages = require('gh-pages')<% } %>
 
 // Various tasks for deleting assets etc
 gulp.task('clean:assets', () => {
@@ -190,11 +190,7 @@ gulp.task('serve', (done) => {
 });
 
 <% if (amazonS3) { -%>
-const gulp = require('gulp');
-const parallelize = require('concurrent-transform');
-const awspublish = require('gulp-awspublish');
-
-// 'gulp deploy' -- reads from your AWS Credentials file, creates the correct
+// 'gulp deploy' -- reads from your AWS credentials file, creates the correct
 // headers for your files and uploads them to S3
 gulp.task('upload', () => {
   var credentials = JSON.parse(fs.readFileSync('aws-credentials.json', 'utf8'));
@@ -212,10 +208,6 @@ gulp.task('upload', () => {
     .pipe($.awspublish.reporter());
   });
 <% } -%><% if (rsync) { -%>
-const fs = require('fs');
-const gulp = require('gulp');
-const rsync = require('gulp-rsync');
-
 // 'gulp deploy' -- reads from your Rsync credentials file and incrementally
 // uploads your site to your server
 gulp.task('upload', () => {
@@ -231,10 +223,6 @@ gulp.task('upload', () => {
   }));
 });
 <% } -%><% if (ghpages) { -%>
-const gulp = require('gulp');
-const path = require('path');
-const ghPages = require('gh-pages');
-
 // 'gulp deploy' -- pushes your dist folder to Github
 gulp.task('upload', (done) => {
   ghPages.publish(path.join(__dirname + '/../../', 'dist'), {

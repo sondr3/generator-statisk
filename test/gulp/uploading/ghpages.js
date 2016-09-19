@@ -45,20 +45,20 @@ test('does not contain wrong uploading packages', () => {
 
 test('contains deploy function', () => {
   [
-    'const gulp',
     'const ghPages',
+    'pushes your dist folder to Github',
     'gulp.task(\'upload'
   ].forEach(field => {
-    assert.fileContent('gulp/tasks/uploading.js', field);
+    assert.fileContent('gulpfile.js', field);
   });
 });
 
 test('does not contain the wrong uploading task', () => {
   [
     'const parallelize',
-    'const awspublish',
-    'const rsync'
+    'reads from your AWS credentials file',
+    'reads from your Rsync credentials file'
   ].forEach(field => {
-    assert.noFileContent('gulp/tasks/uploading.js', field);
+    assert.noFileContent('gulpfile.js', field);
   });
 });

@@ -29,19 +29,6 @@ test('creates comment about creation', () => {
   assert.fileContent('gulpfile.js', '// generated on ' + date + ' using ' + pkg.name + ' ' + pkg.version);
 });
 
-test('creates gulp task files', () => {
-  assert.file([
-    'gulp/tasks/assets.js',
-    'gulp/tasks/clean.js',
-    'gulp/tasks/copy.js',
-    'gulp/tasks/fonts.js',
-    'gulp/tasks/html.js',
-    'gulp/tasks/images.js',
-    'gulp/tasks/inject.js',
-    'gulp/tasks/uploading.js'
-  ]);
-});
-
 test('does not create credentials files', () => {
   assert.noFile([
     'aws-credentials.json',
@@ -67,6 +54,21 @@ test('does not contain deploy task', () => {
 
 test('contains default gulp tasks', () => {
   [
+    'clean:assets',
+    'clean:images',
+    'clean:dist',
+    'clean:gzip',
+    'clean:site',
+    'scripts',
+    'styles',
+    'serve',
+    'fonts',
+    'html',
+    'images',
+    'copy:assets',
+    'copy:site',
+    'inject:head',
+    'inject:footer',
     'inject',
     'build:site',
     'assets',
@@ -78,6 +80,10 @@ test('contains default gulp tasks', () => {
   ].forEach(function (task) {
     assert.fileContent('gulpfile.js', 'gulp.task(\'' + task);
   });
+});
+
+test('contains reload function', () => {
+  assert.fileContent('gulpfile.js', 'function reload');
 });
 
 test('creates package.json', () => {
@@ -100,6 +106,7 @@ test('package.json contains correct packages', () => {
       'gulp-if': '^2.0.0',
       'gulp-imagemin': '^3.0.0',
       'gulp-inject': '^4.0.0',
+      'gulp-load-plugins': '^1.3.0',
       'gulp-newer': '^1.1.0',
       'gulp-postcss': '^6.0.0',
       'gulp-rename': '^1.2.2',

@@ -37,6 +37,5 @@ test('does not contain uploading packages', () => {
 });
 
 test('does not contain deploy task', () => {
-  assert.fileContent('gulp/tasks/uploading.js', '// File empty but generated because of how Yeoman scaffolds files');
-  assert.noFileContent('gulp/tasks/uploading.js', 'gulp.task(\'upload\'');
+  assert.noFileContent('gulpfile.js', 'gulp.task(\'upload\'');
 });

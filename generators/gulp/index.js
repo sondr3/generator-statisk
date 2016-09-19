@@ -94,14 +94,6 @@ module.exports = generators.Base.extend({
           date: (new Date()).toISOString().split('T')[0],
           name: this.options.name,
           version: this.options.version,
-          noUpload: this.options.uploading === 'None'
-        }
-      );
-
-      this.fs.copyTpl(
-        this.templatePath('tasks'),
-        this.destinationPath('gulp/tasks'),
-        {
           amazonS3: this.options.uploading === 'Amazon S3',
           rsync: this.options.uploading === 'Rsync',
           ghpages: this.options.uploading === 'Github Pages',
