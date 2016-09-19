@@ -5,13 +5,31 @@ const argv = require('yargs').argv;
 const autoprefixer = require('autoprefixer');<% if (babel) { %>
 const babel = require('gulp-babel');<% } %>
 const browserSync = require('browser-sync').create();
+const del = require('del');
 const gulp = require('gulp');
 const $ = require('gulp-load-plugins')();
 
+// Various tasks for deleting assets etc
+gulp.task('clean:assets', () => {
+    return del(['.tmp/**/*', '!.tmp/assets', '!.tmp/assets/images', '!.tmp/assets/images/**/*', 'dist/assets']);
+});
+gulp.task('clean:images', () => {
+    return del(['.tmp/assets/images', 'dist/assets/images']);
+});
+gulp.task('clean:dist', () => {
+    return del(['dist/', '.tmp/dist']);
+});
+gulp.task('clean:gzip', () => {
+    return del(['dist/**/*.gz']);
+});
+gulp.task('clean:site', () => {
+    return del(['.tmp/src']);
+});
+
 // 'gulp scripts' -- creates a index.js file from your JavaScript files and
-// creates a Sourcemap for it
+// creates a sourcemap for it
 // 'gulp scripts --prod' -- creates a index.js file from your JavaScript files,
-// minifies, gzips and cache busts it. Does not create a Sourcemap
+// minifies, gzips and cache busts it. Does not create a sourcemap
 gulp.task('scripts', () =>
   // NOTE: The order here is important since it's concatenated in order from
   // top to bottom, so you want vendor scripts etc on top
@@ -45,9 +63,9 @@ gulp.task('scripts', () =>
 );
 
 // 'gulp styles' -- creates a CSS file from your SASS, adds prefixes and
-// creates a Sourcemap
+// creates a sourcemap
 // 'gulp styles --prod' -- creates a CSS file from your SASS, adds prefixes and
-// then minifies, gzips and cache busts it. Does not create a Sourcemap
+// then minifies, gzips and cache busts it. Does not create a sourcemap
 gulp.task('styles', () =>
   gulp.src('src/assets/scss/style.scss')
     .pipe($.if(!argv.prod, sourcemaps.init()))
