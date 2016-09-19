@@ -11,19 +11,19 @@ const $ = require('gulp-load-plugins')();
 
 // Various tasks for deleting assets etc
 gulp.task('clean:assets', () => {
-    return del(['.tmp/**/*', '!.tmp/assets', '!.tmp/assets/images', '!.tmp/assets/images/**/*', 'dist/assets']);
+  return del(['.tmp/**/*', '!.tmp/assets', '!.tmp/assets/images', '!.tmp/assets/images/**/*', 'dist/assets']);
 });
 gulp.task('clean:images', () => {
-    return del(['.tmp/assets/images', 'dist/assets/images']);
+  return del(['.tmp/assets/images', 'dist/assets/images']);
 });
 gulp.task('clean:dist', () => {
-    return del(['dist/', '.tmp/dist']);
+  return del(['dist/', '.tmp/dist']);
 });
 gulp.task('clean:gzip', () => {
-    return del(['dist/**/*.gz']);
+  return del(['dist/**/*.gz']);
 });
 gulp.task('clean:site', () => {
-    return del(['.tmp/src']);
+  return del(['.tmp/src']);
 });
 
 // 'gulp scripts' -- creates a index.js file from your JavaScript files and
@@ -93,6 +93,40 @@ gulp.task('styles', () =>
     })))
     .pipe(gulp.dest('.tmp/assets/stylesheets'))
     .pipe($.if(!argv.prod, $.browserSync.stream()))
+);
+
+// 'gulp html' -- does nothing
+// 'gulp html --prod' -- minifies and gzips our HTML files
+gulp.task('html', () =>
+  gulp.src('dist/**/*.html')
+    .pipe($.if(argv.prod, $.htmlmin({
+      removeComments: true,
+      collapseWhitespace: true,
+      collapseBooleanAttributes: true,
+      removeAttributeQuotes: true,
+      removeRedundantAttributes: true
+    })))
+    .pipe($.if(argv.prod, $.size({title: 'optimized HTML'})))
+    .pipe($.if(argv.prod, gulp.dest('dist')))
+    .pipe($.if(argv.prod, $.gzip({append: true})))
+    .pipe($.if(argv.prod, $.size({
+      title: 'gzipped HTML',
+      gzip: true
+    })))
+    .pipe($.if(argv.prod, gulp.dest('dist')))
+);
+
+// 'gulp images' -- optimizes and caches your images
+gulp.task('images', () =>
+  gulp.src('src/assets/images/**/*')
+    .pipe(cache(imagemin([
+      imagemin.gifsicle({interlaced: true}),
+      imagemin.jpegtran({progressive: true}),
+      imagemin.optipng(),
+      imagemin.svgo({plugins: [{cleanupIDs: false}]})
+    ])))
+    .pipe(gulp.dest('.tmp/assets/images'))
+    .pipe(size({title: 'images'}))
 );
 
 // 'gulp assets:copy' -- copies the assets into the dist directory, needs to be
