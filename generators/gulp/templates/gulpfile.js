@@ -98,14 +98,21 @@ gulp.task('styles', () =>
 // 'gulp assets:copy' -- copies the assets into the dist directory, needs to be
 // done this way because Jekyll overwrites the whole directory otherwise
 gulp.task('copy:assets', () =>
-          gulp.src('.tmp/assets/**/*')
-          .pipe(gulp.dest('dist/assets'))
+  gulp.src('.tmp/assets/**/*')
+    .pipe(gulp.dest('dist/assets'))
 );
 
 // 'gulp jekyll:copy' -- copies your processed Jekyll site to the dist directory
 gulp.task('copy:site', () =>
-          gulp.src('.tmp/dist/**/*')
-          .pipe(gulp.dest('dist'))
+  gulp.src('.tmp/dist/**/*')
+    .pipe(gulp.dest('dist'))
+);
+
+// 'gulp fonts' -- copies your fonts to the temporary assets directory
+gulp.task('fonts', () =>
+  gulp.src('src/assets/fonts/**/*')
+    .pipe(gulp.dest('.tmp/assets/fonts'))
+    .pipe(size({title: 'fonts'}))
 );
 
 // Function to properly reload your browser
