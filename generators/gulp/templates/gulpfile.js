@@ -1,10 +1,104 @@
 // generated on <%= date %> using <%= name %> <%= version %>
 'use strict';
 
+const argv = require('yargs').argv;
+const autoprefixer = require('autoprefixer');<% if (babel) { %>
+const babel = require('gulp-babel');<% } %>
+const browserSync = require('browser-sync').create();
 const gulp = require('gulp');
+const $ = require('gulp-load-plugins')();
 
-const requireDir = require('require-dir');
-const tasks = requireDir('./gulp/tasks', {recurse: true}); // eslint-disable-line
+// 'gulp scripts' -- creates a index.js file from your JavaScript files and
+// creates a Sourcemap for it
+// 'gulp scripts --prod' -- creates a index.js file from your JavaScript files,
+// minifies, gzips and cache busts it. Does not create a Sourcemap
+gulp.task('scripts', () =>
+  // NOTE: The order here is important since it's concatenated in order from
+  // top to bottom, so you want vendor scripts etc on top
+  gulp.src([
+    'src/assets/javascript/vendor.js',
+    'src/assets/javascript/main.js'
+  ])
+    .pipe($.newer('.tmp/assets/javascript/index.js', {dest: '.tmp/assets/javascript', ext: '.js'}))
+    .pipe($.if(!argv.prod, sourcemaps.init()))<% if (babel) { %>
+    .pipe($.babel({
+      presets: ['es2015']
+    }))<% } %>
+    .pipe($.concat('index.js'))
+    .pipe($.size({
+      showFiles: true
+    }))
+    .pipe($.if(argv.prod, $.rename({suffix: '.min'})))
+    .pipe($.if(argv.prod, $.if('*.js', uglify({preserveComments: 'some'}))))
+    .pipe($.if(argv.prod, $.size({
+      showFiles: true
+    })))
+    .pipe($.if(argv.prod, $rev()))
+    .pipe($.if(!argv.prod, $.sourcemaps.write('.')))
+    .pipe($.if(argv.prod, gulp.dest('.tmp/assets/javascript')))
+    .pipe($.if(argv.prod, $.if('*.js', $.gzip({append: true}))))
+    .pipe($.if(argv.prod, $.size({
+      gzip: true,
+      showFiles: true
+    })))
+    .pipe(gulp.dest('.tmp/assets/javascript'))
+);
+
+// 'gulp styles' -- creates a CSS file from your SASS, adds prefixes and
+// creates a Sourcemap
+// 'gulp styles --prod' -- creates a CSS file from your SASS, adds prefixes and
+// then minifies, gzips and cache busts it. Does not create a Sourcemap
+gulp.task('styles', () =>
+  gulp.src('src/assets/scss/style.scss')
+    .pipe($.if(!argv.prod, sourcemaps.init()))
+    .pipe($.sass({
+      precision: 10
+    }).on('error', sass.logError))
+    .pipe($.postcss([
+      autoprefixer({browsers: 'last 1 version'})
+    ]))
+    .pipe($.size({
+      showFiles: true
+    }))
+    .pipe($.if(argv.prod, $.rename({suffix: '.min'})))
+    .pipe($.if(argv.prod, $.if('*.css', $.cssnano({autoprefixer: false}))))
+    .pipe($.if(argv.prod, size({
+      showFiles: true
+    })))
+    .pipe($.if(argv.prod, $.rev()))
+    .pipe($.if(!argv.prod, $.sourcemaps.write('.')))
+    .pipe($.if(argv.prod, gulp.dest('.tmp/assets/stylesheets')))
+    .pipe($.if(argv.prod, $.if('*.css', $.gzip({append: true}))))
+    .pipe($.if(argv.prod, $.size({
+      gzip: true,
+      showFiles: true
+    })))
+    .pipe(gulp.dest('.tmp/assets/stylesheets'))
+    .pipe($.if(!argv.prod, $.browserSync.stream()))
+);
+
+// Function to properly reload your browser
+function reload(done) {
+  browserSync.reload();
+  done();
+}
+// 'gulp serve' -- open up your website in your browser and watch for changes
+// in all your files and update them $.if needed
+gulp.task('serve', (done) => {
+  browserSync.init({
+    // tunnel: true,
+    // open: false,
+    server: ['.tmp', 'dist']
+  });
+  done();
+
+  // Watch various files for changes and do the needful
+  gulp.watch(['src/**/*.md', 'src/**/*.html', 'src/**/*.yml'], gulp.series('build:site', reload));
+  gulp.watch(['src/**/*.xml', 'src/**/*.txt'], gulp.series('site', reload));
+  gulp.watch('src/assets/javascript/**/*.js', gulp.series('scripts', reload));
+  gulp.watch('src/assets/scss/**/*.scss', gulp.series('styles'));
+  gulp.watch('src/assets/images/**/*', gulp.series('images', reload));
+});
 
 // 'gulp inject' -- injects your CSS and JS into either the header or the footer
 gulp.task('inject', gulp.parallel('inject:head', 'inject:footer'));
@@ -33,7 +127,7 @@ gulp.task('build', gulp.series('clean', 'assets', 'build:site', 'html'));
 gulp.task('deploy', gulp.series('upload'));
 
 <% } -%>
-// 'gulp rebuild' -- WARNING: Erases your assets and built site, use only when
+// 'gulp rebuild' -- WARNING: Erases your assets and built site, use only $.if
 // you need to do a complete rebuild
 gulp.task('rebuild', gulp.series('clean', 'clean:images'));
 

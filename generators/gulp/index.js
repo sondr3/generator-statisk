@@ -52,6 +52,7 @@ module.exports = generators.Base.extend({
         'gulp-if': '^2.0.0',
         'gulp-imagemin': '^3.0.0',
         'gulp-inject': '^4.0.0',
+        'gulp-load-plugins': '^1.3.0',
         'gulp-newer': '^1.1.0',
         'gulp-postcss': '^6.0.0',
         'gulp-rename': '^1.2.2',
