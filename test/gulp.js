@@ -116,7 +116,6 @@ test('package.json contains correct packages', () => {
       'gulp-size': '^2.0.0',
       'gulp-sourcemaps': '^1.3.0',
       'gulp-uglify': '^2.0.0',
-      'require-dir': '^0.3.0',
       'shelljs': '^0.7.0',
       'yargs': '^5.0.0'
     }
