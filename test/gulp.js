@@ -49,6 +49,7 @@ test('does not contain uploading packages', () => {
 });
 
 test('does not contain deploy task', () => {
+  assert.noFileContent('gulpfile.js', 'gulp.task(\'upload');
   assert.noFileContent('gulpfile.js', 'gulp.task(\'deploy');
 });
 
