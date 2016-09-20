@@ -31,6 +31,12 @@ module.exports = generators.Base.extend({
       name: 'Generator version',
       desc: 'Version of generator used to generate gulpfile'
     });
+
+    this.option('buildContent', {
+      required: true,
+      name: 'Build tasks',
+      desc: 'Gulp tasks to build your site with your static site generator'
+    });
   },
 
   writing: {
@@ -94,6 +100,7 @@ module.exports = generators.Base.extend({
           date: (new Date()).toISOString().split('T')[0],
           name: this.options.name,
           version: this.options.version,
+          buildContent: this.options.buildContent,
           amazonS3: this.options.uploading === 'Amazon S3',
           rsync: this.options.uploading === 'Rsync',
           ghpages: this.options.uploading === 'Github Pages',

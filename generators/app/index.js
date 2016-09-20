@@ -17,6 +17,12 @@ module.exports = generators.Base.extend({
       required: false,
       desc: 'Content to insert into README.md'
     });
+
+    this.option('buildContent', {
+      type: String,
+      requred: true,
+      desc: 'Gulp tasks to build your site with your static site generator'
+    });
   },
 
   initializing: function () {
