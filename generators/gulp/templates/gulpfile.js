@@ -1,12 +1,13 @@
 // generated on <%= date %> using <%= name %> <%= version %>
 'use strict';
 
--<%  if (amazonS3 || rsync) { -%>
-const fs = require('fs');-<% } -%>
+<%  if (amazonS3 || rsync) { -%>
+const fs = require('fs');<% } -%>
 const argv = require('yargs').argv;
 const autoprefixer = require('autoprefixer');
 const browserSync = require('browser-sync').create();
 const del = require('del');
+const shell = require('shelljs');
 const gulp = require('gulp');
 const $ = require('gulp-load-plugins')();<% if (amazonS3) { %>
 const parallelize = require('concurrent-transform');<% } %><% if (ghpages) { %>
@@ -28,7 +29,6 @@ gulp.task('clean:gzip', () => {
 gulp.task('clean:site', () => {
   return del(['.tmp/src']);
 });
-
 <%= buildContent -%>
 
 // 'gulp scripts' -- creates a index.js file from your JavaScript files and
@@ -43,7 +43,7 @@ gulp.task('scripts', () =>
     'src/assets/javascript/main.js'
   ])
     .pipe($.newer('.tmp/assets/javascript/index.js', {dest: '.tmp/assets/javascript', ext: '.js'}))
-    .pipe($.if(!argv.prod, sourcemaps.init()))<% if (babel) { %>
+    .pipe($.if(!argv.prod, $.sourcemaps.init()))<% if (babel) { %>
     .pipe($.babel({
       presets: ['es2015']
     }))<% } %>
@@ -52,11 +52,11 @@ gulp.task('scripts', () =>
       showFiles: true
     }))
     .pipe($.if(argv.prod, $.rename({suffix: '.min'})))
-    .pipe($.if(argv.prod, $.if('*.js', uglify({preserveComments: 'some'}))))
+    .pipe($.if(argv.prod, $.if('*.js', $.uglify({preserveComments: 'some'}))))
     .pipe($.if(argv.prod, $.size({
       showFiles: true
     })))
-    .pipe($.if(argv.prod, $rev()))
+    .pipe($.if(argv.prod, $.rev()))
     .pipe($.if(!argv.prod, $.sourcemaps.write('.')))
     .pipe($.if(argv.prod, gulp.dest('.tmp/assets/javascript')))
     .pipe($.if(argv.prod, $.if('*.js', $.gzip({append: true}))))
@@ -73,10 +73,10 @@ gulp.task('scripts', () =>
 // then minifies, gzips and cache busts it. Does not create a sourcemap
 gulp.task('styles', () =>
   gulp.src('src/assets/scss/style.scss')
-    .pipe($.if(!argv.prod, sourcemaps.init()))
+    .pipe($.if(!argv.prod, $.sourcemaps.init()))
     .pipe($.sass({
       precision: 10
-    }).on('error', sass.logError))
+    }).on('error', $.sass.logError))
     .pipe($.postcss([
       autoprefixer({browsers: 'last 1 version'})
     ]))
@@ -85,7 +85,7 @@ gulp.task('styles', () =>
     }))
     .pipe($.if(argv.prod, $.rename({suffix: '.min'})))
     .pipe($.if(argv.prod, $.if('*.css', $.cssnano({autoprefixer: false}))))
-    .pipe($.if(argv.prod, size({
+    .pipe($.if(argv.prod, $.size({
       showFiles: true
     })))
     .pipe($.if(argv.prod, $.rev()))
@@ -97,7 +97,7 @@ gulp.task('styles', () =>
       showFiles: true
     })))
     .pipe(gulp.dest('.tmp/assets/stylesheets'))
-    .pipe($.if(!argv.prod, $.browserSync.stream()))
+    .pipe($.if(!argv.prod, browserSync.stream()))
 );
 
 // 'gulp html' -- does nothing
@@ -125,10 +125,10 @@ gulp.task('html', () =>
 gulp.task('images', () =>
   gulp.src('src/assets/images/**/*')
     .pipe($.cache($.imagemin([
-      imagemin.gifsicle({interlaced: true}),
-      imagemin.jpegtran({progressive: true}),
-      imagemin.optipng(),
-      imagemin.svgo({plugins: [{cleanupIDs: false}]})
+      $.imagemin.gifsicle({interlaced: true}),
+      $.imagemin.jpegtran({progressive: true}),
+      $.imagemin.optipng(),
+      $.imagemin.svgo({plugins: [{cleanupIDs: false}]})
     ])))
     .pipe(gulp.dest('.tmp/assets/images'))
     .pipe($.size({title: 'images'}))
@@ -165,7 +165,7 @@ gulp.task('copy:site', () =>
 gulp.task('fonts', () =>
   gulp.src('src/assets/fonts/**/*')
     .pipe(gulp.dest('.tmp/assets/fonts'))
-    .pipe(size({title: 'fonts'}))
+    .pipe($.size({title: 'fonts'}))
 );
 
 // Function to properly reload your browser
@@ -262,6 +262,9 @@ gulp.task('rebuild', gulp.series('clean', 'clean:images'));
 
 // 'gulp check' -- checks your site configuration for errors and lint your JS
 gulp.task('check', gulp.series('site:check'));
+
+// 'gulp deploy' -- different name for the uploading task for backwards compatability
+gulp.task('deploy', gulp.series('upload'));
 
 // 'gulp' -- cleans your assets and gzipped files, creates your assets and
 // injects them into the templates, then builds your site, copied the assets
