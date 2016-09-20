@@ -29,7 +29,7 @@ gulp.task('clean:gzip', () => {
 gulp.task('clean:site', () => {
   return del(['.tmp/src']);
 });
-<%= buildContent -%>
+<%- buildContent -%>
 
 // 'gulp scripts' -- creates a index.js file from your JavaScript files and
 // creates a sourcemap for it
