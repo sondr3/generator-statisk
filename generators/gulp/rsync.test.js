@@ -6,8 +6,7 @@ var helpers = require('yeoman-test');
 beforeAll(() => {
   return helpers
     .run(path.join(__dirname, '.'))
-    .withOptions({ uploading: 'Rsync' })
-    .toPromise();
+    .withOptions({ uploading: 'Rsync' });
 });
 
 test('creates gulpfile', () => {

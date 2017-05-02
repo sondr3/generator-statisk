@@ -1,10 +1,10 @@
 'use strict';
-var generators = require('yeoman-generator');
-var _ = require('lodash');
+const Generator = require('yeoman-generator');
+const _ = require('lodash');
 
-module.exports = generators.Base.extend({
-  constructor: function() {
-    generators.Base.apply(this, arguments);
+module.exports = class extends Generator {
+  constructor(args, options) {
+    super(args, options);
 
     this.option('babel', {
       type: Boolean,
@@ -23,14 +23,14 @@ module.exports = generators.Base.extend({
       requred: true,
       desc: 'Gulp tasks to build your site with your static site generator'
     });
-  },
+  }
 
-  initializing: function() {
+  initializing() {
     this.props = {};
     this.pkg = this.fs.readJSON(this.destinationPath('package.json'), {});
-  },
+  }
 
-  prompting: function() {
+  prompting() {
     var questions = [
       {
         name: 'projectName',
@@ -77,9 +77,9 @@ module.exports = generators.Base.extend({
         this.props = props;
       }.bind(this)
     );
-  },
+  }
 
-  writing: function() {
+  writing() {
     var pkgJSONFields = {
       name: _.kebabCase(this.props.projectName),
       version: '0.0.0',
@@ -92,56 +92,28 @@ module.exports = generators.Base.extend({
     };
 
     this.fs.writeJSON('package.json', _.extend(pkgJSONFields, this.pkg));
-  },
+  }
 
-  default: function() {
-    this.composeWith(
-      'statisk:editorconfig',
-      {},
-      {
-        local: require.resolve('../editorconfig')
-      }
-    );
+  default() {
+    this.composeWith(require.resolve('../editorconfig'));
 
-    this.composeWith(
-      'statisk:git',
-      {},
-      {
-        local: require.resolve('../git')
-      }
-    );
+    this.composeWith(require.resolve('../git'));
 
-    this.composeWith(
-      'statisk:gulp',
-      {
-        options: {
-          uploading: this.props.uploading,
-          babel: this.props.babel
-        }
-      },
-      {
-        local: require.resolve('../gulp')
-      }
-    );
+    // this.composeWith(require.resolve('../gulp'), {
+    //   uploading: this.props.uploading,
+    //   babel: this.props.babel
+    // });
 
-    this.composeWith(
-      'statisk:readme',
-      {
-        options: {
-          projectName: this.props.projectName,
-          projectDescription: this.props.projectDescription,
-          projectURL: this.props.projectURL,
-          authorName: this.props.authorName,
-          content: this.options.readme
-        }
-      },
-      {
-        local: require.resolve('../readme')
-      }
-    );
-  },
+    this.composeWith(require.resolve('../readme'), {
+      projectName: this.props.projectName,
+      projectDescription: this.props.projectDescription,
+      projectURL: this.props.projectURL,
+      authorName: this.props.authorName,
+      content: this.options.readme
+    });
+  }
 
-  install: function() {
+  install() {
     this.installDependencies({ bower: false });
   }
-});
+};

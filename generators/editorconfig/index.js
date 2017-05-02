@@ -1,12 +1,12 @@
 'use strict';
 
-var generators = require('yeoman-generator');
+const Generator = require('yeoman-generator');
 
-module.exports = generators.Base.extend({
-  configuring: function() {
+module.exports = class extends Generator {
+  configuring() {
     this.fs.copy(
       this.templatePath('editorconfig'),
       this.destinationPath('.editorconfig')
     );
   }
-});
+};

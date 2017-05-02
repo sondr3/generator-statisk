@@ -6,8 +6,7 @@ var helpers = require('yeoman-test');
 beforeAll(() => {
   return helpers
     .run(path.join(__dirname, '.'))
-    .withOptions({ 'skip-install': true })
-    .toPromise();
+    .withOptions({ 'skip-install': true });
 });
 
 test('generates expected files', () => {

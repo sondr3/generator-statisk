@@ -13,8 +13,7 @@ beforeAll(() => {
       authorName: 'Ola Nordmann',
       authorEmail: 'ola.nordmann@gmail.com'
     })
-    .withOptions({ 'skip-install': true })
-    .toPromise();
+    .withOptions({ 'skip-install': true });
 });
 
 test('generates expected files', () => {

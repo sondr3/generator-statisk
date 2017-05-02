@@ -1,9 +1,9 @@
 'use strict';
 
-var generators = require('yeoman-generator');
+const Generator = require('yeoman-generator');
 
-module.exports = generators.Base.extend({
-  configuring: function() {
+module.exports = class extends Generator {
+  configuring() {
     this.fs.copy(
       this.templatePath('gitattributes'),
       this.destinationPath('.gitattributes')
@@ -13,11 +13,11 @@ module.exports = generators.Base.extend({
       this.templatePath('gitignore'),
       this.destinationPath('.gitignore')
     );
-  },
+  }
 
-  end: function() {
+  end() {
     this.spawnCommandSync('git', ['init', '--quiet'], {
       cwd: this.destinationPath()
     });
   }
-});
+};

@@ -12,8 +12,7 @@ beforeAll(() => {
       projectURL: 'github.com/olanordmann/statisk',
       authorName: 'Ola Nordmann'
     })
-    .withOptions({ 'skip-install': true })
-    .toPromise();
+    .withOptions({ 'skip-install': true });
 });
 
 test('generates README.md', () => {

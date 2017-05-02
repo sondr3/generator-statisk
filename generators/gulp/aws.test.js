@@ -6,8 +6,7 @@ var helpers = require('yeoman-test');
 beforeAll(() => {
   return helpers
     .run(path.join(__dirname, '.'))
-    .withOptions({ uploading: 'Amazon S3' })
-    .toPromise();
+    .withOptions({ uploading: 'Amazon S3' });
 });
 
 test('creates gulpfile', () => {

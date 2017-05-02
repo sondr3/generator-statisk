@@ -20,13 +20,13 @@
   ],
   "dependencies": {
     "lodash": "^4.16.0",
-    "yeoman-generator": "^0.24.0"
+    "yeoman-generator": "^1.1.1"
   },
   "devDependencies": {
     "coveralls": "^2.11.12",
     "jest": "^19.0.2",
     "prettier": "^1.2.2",
-    "yeoman-assert": "^2.0.0",
+    "yeoman-assert": "^3.0.0",
     "yeoman-test": "^1.5.0"
   },
   "repository": "sondr3/generator-statisk",

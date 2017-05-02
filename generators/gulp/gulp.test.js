@@ -6,16 +6,13 @@ var helpers = require('yeoman-test');
 beforeAll(() => {
   const pkg = require('../../package.json');
 
-  return helpers
-    .run(path.join(__dirname, '.'))
-    .withOptions({
-      name: pkg.name,
-      version: pkg.version,
-      'skip-install': true,
-      uploading: 'None',
-      babel: false
-    })
-    .toPromise();
+  return helpers.run(path.join(__dirname, '.')).withOptions({
+    name: pkg.name,
+    version: pkg.version,
+    'skip-install': true,
+    uploading: 'None',
+    babel: false
+  });
 });
 
 test('creates gulpfile', () => {

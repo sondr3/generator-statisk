@@ -1,10 +1,10 @@
 'use strict';
 
-var generators = require('yeoman-generator');
+const Generator = require('yeoman-generator');
 
-module.exports = generators.Base.extend({
-  constructor: function() {
-    generators.Base.apply(this, arguments);
+module.exports = class extends Generator {
+  constructor(args, options) {
+    super(args, options);
 
     this.option('projectName', {
       type: String,
@@ -35,9 +35,9 @@ module.exports = generators.Base.extend({
       required: false,
       desc: 'Content to insert into README.md'
     });
-  },
+  }
 
-  configuring: function() {
+  configuring() {
     this.fs.copyTpl(
       this.templatePath('README.md'),
       this.destinationPath('README.md'),
@@ -50,4 +50,4 @@ module.exports = generators.Base.extend({
       }
     );
   }
-});
+};
