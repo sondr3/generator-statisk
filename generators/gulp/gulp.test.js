@@ -6,13 +6,14 @@ var helpers = require('yeoman-test');
 beforeAll(() => {
   const pkg = require('../../package.json');
 
-  return helpers.run(path.join(__dirname, '.'))
+  return helpers
+    .run(path.join(__dirname, '.'))
     .withOptions({
-      'name': pkg.name,
-      'version': pkg.version,
+      name: pkg.name,
+      version: pkg.version,
       'skip-install': true,
-      'uploading': 'None',
-      'babel': false
+      uploading: 'None',
+      babel: false
     })
     .toPromise();
 });
@@ -24,15 +25,15 @@ test('creates gulpfile', () => {
 test('creates comment about creation', () => {
   const pkg = require('../../package.json');
 
-  const date = (new Date()).toISOString().split('T')[0];
-  assert.fileContent('gulpfile.js', '// generated on ' + date + ' using ' + pkg.name + ' ' + pkg.version);
+  const date = new Date().toISOString().split('T')[0];
+  assert.fileContent(
+    'gulpfile.js',
+    '// generated on ' + date + ' using ' + pkg.name + ' ' + pkg.version
+  );
 });
 
 test('does not create credentials files', () => {
-  assert.noFile([
-    'aws-credentials.json',
-    'rsync-credentials.json'
-  ]);
+  assert.noFile(['aws-credentials.json', 'rsync-credentials.json']);
 });
 
 test('does not contain uploading packages', () => {
@@ -48,8 +49,8 @@ test('does not contain uploading packages', () => {
 });
 
 test('does not contain deploy task', () => {
-  assert.noFileContent('gulpfile.js', 'gulp.task(\'upload');
-  assert.noFileContent('gulpfile.js', 'gulp.task(\'deploy');
+  assert.noFileContent('gulpfile.js', "gulp.task('upload");
+  assert.noFileContent('gulpfile.js', "gulp.task('deploy");
 });
 
 test('contains default gulp tasks', () => {
@@ -77,8 +78,8 @@ test('contains default gulp tasks', () => {
     'build',
     'check',
     'default'
-  ].forEach(function (task) {
-    assert.fileContent('gulpfile.js', 'gulp.task(\'' + task);
+  ].forEach(function(task) {
+    assert.fileContent('gulpfile.js', "gulp.task('" + task);
   });
 });
 
@@ -93,11 +94,11 @@ test('creates package.json', () => {
 test('package.json contains correct packages', () => {
   assert.jsonFileContent('package.json', {
     devDependencies: {
-      'autoprefixer': '^6.2.3',
+      autoprefixer: '^6.2.3',
       'babel-preset-es2015': '^6.9.0',
       'browser-sync': '^2.11.0',
-      'del': '^2.2.0',
-      'gulp': 'git://github.com/gulpjs/gulp.git#4.0',
+      del: '^2.2.0',
+      gulp: 'git://github.com/gulpjs/gulp.git#4.0',
       'gulp-cache': '^0.4.1',
       'gulp-concat': '^2.6.0',
       'gulp-cssnano': '^2.1.0',
@@ -115,9 +116,8 @@ test('package.json contains correct packages', () => {
       'gulp-size': '^2.0.0',
       'gulp-sourcemaps': '^1.3.0',
       'gulp-uglify': '^2.0.0',
-      'shelljs': '^0.7.0',
-      'yargs': '^5.0.0'
+      shelljs: '^0.7.0',
+      yargs: '^5.0.0'
     }
   });
 });
-

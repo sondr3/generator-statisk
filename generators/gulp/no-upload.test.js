@@ -4,8 +4,9 @@ var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
 
 beforeAll(() => {
-  return helpers.run(path.join(__dirname, '.'))
-    .withOptions({uploading: 'None'})
+  return helpers
+    .run(path.join(__dirname, '.'))
+    .withOptions({ uploading: 'None' })
     .toPromise();
 });
 
@@ -18,10 +19,7 @@ test('creates package.json file', () => {
 });
 
 test('does not create credentials files', () => {
-  assert.noFile([
-    'aws-credentials.json',
-    'rsync-credentials.json'
-  ]);
+  assert.noFile(['aws-credentials.json', 'rsync-credentials.json']);
 });
 
 test('does not contain uploading packages', () => {
@@ -36,6 +34,6 @@ test('does not contain uploading packages', () => {
 });
 
 test('does not contain deploy task', () => {
-  assert.noFileContent('gulpfile.js', 'gulp.task(\'upload\'');
-  assert.noFileContent('gulpfile.js', 'gulp.task(\'deploy\'');
+  assert.noFileContent('gulpfile.js', "gulp.task('upload'");
+  assert.noFileContent('gulpfile.js', "gulp.task('deploy'");
 });

@@ -4,11 +4,12 @@ var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
 
 beforeAll(() => {
-  return helpers.run(path.join(__dirname, '.'))
+  return helpers
+    .run(path.join(__dirname, '.'))
     .withOptions({
       'skip-install': true,
-      'uploading': 'None',
-      'babel': true
+      uploading: 'None',
+      babel: true
     })
     .toPromise();
 });
@@ -18,9 +19,7 @@ test('creates gulpfile.js', () => {
 });
 
 test('contains babel', () => {
-  [
-    '.pipe($.babel({'
-  ].forEach(field => {
+  ['.pipe($.babel({'].forEach(field => {
     assert.fileContent('gulpfile.js', field);
   });
 });

@@ -3,7 +3,7 @@
 var generators = require('yeoman-generator');
 
 module.exports = generators.Base.extend({
-  configuring: function () {
+  configuring: function() {
     this.fs.copy(
       this.templatePath('gitattributes'),
       this.destinationPath('.gitattributes')
@@ -15,7 +15,7 @@ module.exports = generators.Base.extend({
     );
   },
 
-  end: function () {
+  end: function() {
     this.spawnCommandSync('git', ['init', '--quiet'], {
       cwd: this.destinationPath()
     });

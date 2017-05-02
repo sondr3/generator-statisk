@@ -4,7 +4,7 @@ var _ = require('lodash');
 var generators = require('yeoman-generator');
 
 module.exports = generators.Base.extend({
-  constructor: function () {
+  constructor: function() {
     generators.Base.apply(this, arguments);
 
     this.option('uploading', {
@@ -40,16 +40,16 @@ module.exports = generators.Base.extend({
   },
 
   writing: {
-    package: function () {
+    package: function() {
       var pkg = this.fs.readJSON(this.destinationPath('package.json'), {});
 
       pkg.devDependencies = pkg.devDependencies || {};
       _.extend(pkg.devDependencies, {
-        'autoprefixer': '^6.2.3',
+        autoprefixer: '^6.2.3',
         'babel-preset-es2015': '^6.9.0',
         'browser-sync': '^2.11.0',
-        'del': '^2.2.0',
-        'gulp': 'git://github.com/gulpjs/gulp.git#4.0',
+        del: '^2.2.0',
+        gulp: 'git://github.com/gulpjs/gulp.git#4.0',
         'gulp-cache': '^0.4.1',
         'gulp-concat': '^2.6.0',
         'gulp-cssnano': '^2.1.0',
@@ -67,8 +67,8 @@ module.exports = generators.Base.extend({
         'gulp-size': '^2.0.0',
         'gulp-sourcemaps': '^1.3.0',
         'gulp-uglify': '^2.0.0',
-        'shelljs': '^0.7.0',
-        'yargs': '^5.0.0'
+        shelljs: '^0.7.0',
+        yargs: '^5.0.0'
       });
 
       if (this.options.babel) {
@@ -91,12 +91,12 @@ module.exports = generators.Base.extend({
       this.fs.writeJSON(this.destinationPath('package.json'), pkg);
     },
 
-    gulpfile: function () {
+    gulpfile: function() {
       this.fs.copyTpl(
         this.templatePath('gulpfile'),
         this.destinationPath('gulpfile.js'),
         {
-          date: (new Date()).toISOString().split('T')[0],
+          date: new Date().toISOString().split('T')[0],
           name: this.options.name,
           version: this.options.version,
           buildContent: this.options.buildContent,

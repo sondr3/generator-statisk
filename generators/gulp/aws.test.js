@@ -4,8 +4,9 @@ var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
 
 beforeAll(() => {
-  return helpers.run(path.join(__dirname, '.'))
-    .withOptions({uploading: 'Amazon S3'})
+  return helpers
+    .run(path.join(__dirname, '.'))
+    .withOptions({ uploading: 'Amazon S3' })
     .toPromise();
 });
 
@@ -45,17 +46,14 @@ test('contains upload task', () => {
     'const fs',
     'const parallelize',
     'reads from your AWS credentials file',
-    'gulp.task(\'upload'
+    "gulp.task('upload"
   ].forEach(field => {
     assert.fileContent('gulpfile.js', field);
   });
 });
 
 test('does not contain wrong uploading tasks', () => {
-  [
-    'const ghPages',
-    'reads from your Rsync credentials file'
-  ].forEach(field => {
+  ['const ghPages', 'reads from your Rsync credentials file'].forEach(field => {
     assert.noFileContent('gulpfile.js', field);
   });
 });

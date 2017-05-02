@@ -4,8 +4,9 @@ var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
 
 beforeAll(() => {
-  return helpers.run(path.join(__dirname, '.'))
-    .withOptions({uploading: 'Rsync'})
+  return helpers
+    .run(path.join(__dirname, '.'))
+    .withOptions({ uploading: 'Rsync' })
     .toPromise();
 });
 
@@ -44,7 +45,7 @@ test('contains upload function', () => {
   [
     'const fs',
     'reads from your Rsync credentials file',
-    'gulp.task(\'upload'
+    "gulp.task('upload"
   ].forEach(field => {
     assert.fileContent('gulpfile.js', field);
   });
