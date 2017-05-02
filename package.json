@@ -24,21 +24,22 @@
     "yeoman-generator": "^0.24.0"
   },
   "devDependencies": {
-    "ava": "^0.19.1",
     "coveralls": "^2.11.12",
+    "jest": "^19.0.2",
     "lodash": "^4.16.0",
-    "nyc": "^8.3.0",
-    "xo": "^0.16.0",
     "yeoman-assert": "^2.0.0",
-    "yeoman-generator": "^0.24.1",
     "yeoman-test": "^1.5.0"
   },
   "repository": "sondr3/generator-statisk",
   "scripts": {
-    "pretest": "xo",
-    "test": "nyc ava"
+    "lint": "xo",
+    "test": "jest --coverage"
   },
   "license": "MIT",
+  "jest": {
+    "coverageDirectory": "coverage",
+    "testEnvironment": "node"
+  },
   "xo": {
     "space": true,
     "ignores": [

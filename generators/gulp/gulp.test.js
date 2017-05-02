@@ -1,13 +1,12 @@
 'use strict';
 var path = require('path');
-var test = require('ava');
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
 
-test.before(() => {
-  const pkg = require('../package.json');
+beforeAll(() => {
+  const pkg = require('../../package.json');
 
-  return helpers.run(path.join(__dirname, '../generators/gulp'))
+  return helpers.run(path.join(__dirname, '.'))
     .withOptions({
       'name': pkg.name,
       'version': pkg.version,
@@ -23,7 +22,7 @@ test('creates gulpfile', () => {
 });
 
 test('creates comment about creation', () => {
-  const pkg = require('../package.json');
+  const pkg = require('../../package.json');
 
   const date = (new Date()).toISOString().split('T')[0];
   assert.fileContent('gulpfile.js', '// generated on ' + date + ' using ' + pkg.name + ' ' + pkg.version);

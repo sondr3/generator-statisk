@@ -1,12 +1,11 @@
 'use strict';
 var path = require('path');
-var test = require('ava');
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
 
-test.before(() => {
-  return helpers.run(path.join(__dirname, '../../../generators/gulp'))
-    .withOptions({uploading: 'Rsync'})
+beforeAll(() => {
+  return helpers.run(path.join(__dirname, '.'))
+    .withOptions({uploading: 'Github Pages'})
     .toPromise();
 });
 
@@ -14,19 +13,21 @@ test('creates gulpfile', () => {
   assert.file('gulpfile.js');
 });
 
-test('creates credentials file', () => {
-  assert.file('rsync-credentials.json');
-  assert.noFile('aws-credentials.json');
-});
-
 test('creates package.json file', () => {
   assert.file('package.json');
+});
+
+test('does not create credentials files', () => {
+  assert.noFile([
+    'aws-credentials.json',
+    'rsync-credentials.json'
+  ]);
 });
 
 test('contain correct uploading packages', () => {
   assert.jsonFileContent('package.json', {
     devDependencies: {
-      'gulp-rsync': '^0.0.6'
+      'gh-pages': '^0.11.0'
     }
   });
 });
@@ -36,15 +37,15 @@ test('does not contain wrong uploading packages', () => {
     devDependencies: {
       'gulp-awspublish': '',
       'concurrent-transform': '',
-      'gulp-gh-pages': ''
+      'gulp-rsync': ''
     }
   });
 });
 
-test('contains upload function', () => {
+test('contains deploy function', () => {
   [
-    'const fs',
-    'reads from your Rsync credentials file',
+    'const ghPages',
+    'pushes your dist folder to Github',
     'gulp.task(\'upload'
   ].forEach(field => {
     assert.fileContent('gulpfile.js', field);
@@ -55,7 +56,7 @@ test('does not contain the wrong uploading task', () => {
   [
     'const parallelize',
     'reads from your AWS credentials file',
-    'const ghPages'
+    'reads from your Rsync credentials file'
   ].forEach(field => {
     assert.noFileContent('gulpfile.js', field);
   });
