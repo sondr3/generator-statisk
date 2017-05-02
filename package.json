@@ -35,15 +35,15 @@
   },
   "repository": "sondr3/generator-statisk",
   "scripts": {
-    "test": "xo && nyc ava"
+    "pretest": "xo",
+    "test": "nyc ava"
   },
   "license": "MIT",
   "xo": {
     "space": true,
     "ignores": [
       "generators/app/templates/**",
-      "generators/gulp/templates/**",
-      "generators/jekyll/templates/**"
+      "generators/gulp/templates/**"
     ]
   }
 }
