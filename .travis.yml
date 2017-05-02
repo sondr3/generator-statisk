@@ -5,6 +5,7 @@ node_js:
   - "6"
   - "5"
   - "4"
+cache: yarn
 after_script: 'cat ./coverage/lcov.info | coveralls'
 notifications:
   email: false
