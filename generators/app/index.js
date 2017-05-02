@@ -67,7 +67,7 @@ module.exports = class extends Generator {
       {
         name: 'babel',
         type: 'confirm',
-        message: 'Compile your JS with Babel',
+        message: 'Compile your JS with Babel?',
         when: this.options.babel === undefined
       }
     ];
@@ -99,10 +99,10 @@ module.exports = class extends Generator {
 
     this.composeWith(require.resolve('../git'));
 
-    // this.composeWith(require.resolve('../gulp'), {
-    //   uploading: this.props.uploading,
-    //   babel: this.props.babel
-    // });
+    this.composeWith(require.resolve('../gulp'), {
+      uploading: this.props.uploading,
+      babel: this.props.babel
+    });
 
     this.composeWith(require.resolve('../readme'), {
       projectName: this.props.projectName,
