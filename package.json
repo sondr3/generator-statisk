@@ -25,7 +25,6 @@
   "devDependencies": {
     "coveralls": "^2.11.12",
     "jest": "^19.0.2",
-    "lodash": "^4.16.0",
     "prettier": "^1.2.2",
     "yeoman-assert": "^2.0.0",
     "yeoman-test": "^1.5.0"
