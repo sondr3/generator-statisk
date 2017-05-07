@@ -1,17 +1,13 @@
 // generated on <%= date %> using <%= name %> <%= version %>
 'use strict';
 
-<%  if (amazonS3 || rsync) { -%>
-const fs = require('fs');<% } -%>
 const argv = require('yargs').argv;
 const autoprefixer = require('autoprefixer');
 const browserSync = require('browser-sync').create();
 const del = require('del');
 const shell = require('shelljs');
 const gulp = require('gulp');
-const $ = require('gulp-load-plugins')();<% if (amazonS3) { %>
-const parallelize = require('concurrent-transform');<% } %><% if (ghpages) { %>
-const ghPages = require('gh-pages')<% } %>
+const $ = require('gulp-load-plugins')();
 
 // Various tasks for deleting assets etc
 gulp.task('clean:assets', () => {
@@ -191,50 +187,6 @@ gulp.task('serve', (done) => {
   gulp.watch('src/assets/images/**/*', gulp.series('images', reload));
 });
 
-<% if (amazonS3) { -%>
-// 'gulp deploy' -- reads from your AWS credentials file, creates the correct
-// headers for your files and uploads them to S3
-gulp.task('upload', () => {
-  var credentials = JSON.parse(fs.readFileSync('aws-credentials.json', 'utf8'));
-  var publisher = $.awspublish.create(credentials);
-
-  var headers = {
-    'Cache-Control': 'max-age=315360000, no-transform, public'
-  };
-
-  return gulp.src('dist/**/*', {dot: true})
-    .pipe($.awspublish.gzip())
-    .pipe(parallelize(publisher.publish(headers), 30))
-    .pipe(publisher.cache())
-    .pipe(publisher.sync())
-    .pipe($.awspublish.reporter());
-  });
-<% } -%><% if (rsync) { -%>
-// 'gulp deploy' -- reads from your Rsync credentials file and incrementally
-// uploads your site to your server
-gulp.task('upload', () => {
-  var credentials = JSON.parse(fs.readFileSync('rsync-credentials.json', 'utf8'));
-
-  return gulp.src('dist/**', {dot: true})
-    .pipe($.rsync({
-      root: 'dist',
-      hostname: credentials.hostname,
-      username: credentials.username,
-      destination: credentials.destination,
-      incremental: true
-  }));
-});
-<% } -%><% if (ghpages) { -%>
-// 'gulp deploy' -- pushes your dist folder to Github
-gulp.task('upload', (done) => {
-  ghPages.publish(path.join(__dirname + '/../../', 'dist'), {
-    dotfiles: true,
-    // branch: "master"
-  },
-  done);
-});
-<% } -%>
-
 // 'gulp inject' -- injects your CSS and JS into either the header or the footer
 gulp.task('inject', gulp.parallel('inject:head', 'inject:footer'));
 
@@ -262,10 +214,6 @@ gulp.task('rebuild', gulp.series('clean', 'clean:images'));
 
 // 'gulp check' -- checks your site configuration for errors and lint your JS
 gulp.task('check', gulp.series('site:check'));
-
-<% if (!noUpload) { %>
-// 'gulp deploy' -- different name for the uploading task for backwards compatability
-gulp.task('deploy', gulp.series('upload'));<% } -%>
 
 // 'gulp' -- cleans your assets and gzipped files, creates your assets and
 // injects them into the templates, then builds your site, copied the assets

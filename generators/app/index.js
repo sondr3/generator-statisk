@@ -58,13 +58,6 @@ module.exports = class extends Generator {
         store: true
       },
       {
-        name: 'uploading',
-        type: 'list',
-        message: 'How do you want to upload your site?',
-        choices: ['Amazon S3', 'Rsync', 'Github Pages', 'None'],
-        store: true
-      },
-      {
         name: 'babel',
         type: 'confirm',
         message: 'Compile your JS with Babel?',
@@ -100,7 +93,6 @@ module.exports = class extends Generator {
     this.composeWith(require.resolve('../git'));
 
     this.composeWith(require.resolve('../gulp'), {
-      uploading: this.props.uploading,
       babel: this.props.babel
     });
 

@@ -10,7 +10,6 @@ beforeAll(() => {
     name: pkg.name,
     version: pkg.version,
     'skip-install': true,
-    uploading: 'None',
     babel: false
   });
 });
@@ -27,27 +26,6 @@ test('creates comment about creation', () => {
     'gulpfile.js',
     '// generated on ' + date + ' using ' + pkg.name + ' ' + pkg.version
   );
-});
-
-test('does not create credentials files', () => {
-  assert.noFile(['aws-credentials.json', 'rsync-credentials.json']);
-});
-
-test('does not contain uploading packages', () => {
-  assert.noJsonFileContent('package.json', {
-    devDependencies: {
-      'gulp-awspublish': '',
-      'gulp-babel': '',
-      'concurrent-transform': '',
-      'gulp-rsync': '',
-      'gulp-gh-pages': ''
-    }
-  });
-});
-
-test('does not contain deploy task', () => {
-  assert.noFileContent('gulpfile.js', "gulp.task('upload");
-  assert.noFileContent('gulpfile.js', "gulp.task('deploy");
 });
 
 test('contains default gulp tasks', () => {

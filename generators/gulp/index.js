@@ -6,13 +6,6 @@ module.exports = class extends Generator {
   constructor(args, options) {
     super(args, options);
 
-    this.option('uploading', {
-      type: String,
-      required: true,
-      message: 'How do you want to upload your site?',
-      choices: ['Amazon S3', 'Rsync', 'Github Pages', 'None']
-    });
-
     this.option('babel', {
       type: String,
       required: true
@@ -72,19 +65,6 @@ module.exports = class extends Generator {
       pkg.devDependencies['gulp-babel'] = '^6.1.2';
     }
 
-    if (this.options.uploading === 'Amazon S3') {
-      pkg.devDependencies['gulp-awspublish'] = '^3.2.0';
-      pkg.devDependencies['concurrent-transform'] = '^1.0.0';
-    }
-
-    if (this.options.uploading === 'Rsync') {
-      pkg.devDependencies['gulp-rsync'] = '^0.0.6';
-    }
-
-    if (this.options.uploading === 'Github Pages') {
-      pkg.devDependencies['gh-pages'] = '^0.11.0';
-    }
-
     this.fs.writeJSON(this.destinationPath('package.json'), pkg);
 
     this.fs.copyTpl(
@@ -95,26 +75,8 @@ module.exports = class extends Generator {
         name: this.options.name,
         version: this.options.version,
         buildContent: this.options.buildContent,
-        amazonS3: this.options.uploading === 'Amazon S3',
-        rsync: this.options.uploading === 'Rsync',
-        ghpages: this.options.uploading === 'Github Pages',
-        noUpload: this.options.uploading === 'None',
         babel: this.options.babel
       }
     );
-
-    if (this.options.uploading === 'Amazon S3') {
-      this.fs.copyTpl(
-        this.templatePath('aws-credentials.json'),
-        this.destinationPath('aws-credentials.json')
-      );
-    }
-
-    if (this.options.uploading === 'Rsync') {
-      this.fs.copyTpl(
-        this.templatePath('rsync-credentials.json'),
-        this.destinationPath('rsync-credentials.json')
-      );
-    }
   }
 };
