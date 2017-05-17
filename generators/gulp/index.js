@@ -6,11 +6,6 @@ module.exports = class extends Generator {
   constructor(args, options) {
     super(args, options);
 
-    this.option('babel', {
-      type: Boolean,
-      required: true
-    });
-
     this.option('name', {
       type: String,
       required: true,
@@ -36,9 +31,11 @@ module.exports = class extends Generator {
     pkg.devDependencies = pkg.devDependencies || {};
     _.extend(pkg.devDependencies, {
       autoprefixer: '^6.2.3',
+      'babel-preset-es2015': '^6.9.0',
       'browser-sync': '^2.11.0',
       del: '^2.2.0',
       gulp: 'git://github.com/gulpjs/gulp.git#4.0',
+      'gulp-babel': '^6.1.2',
       'gulp-cache': '^0.4.1',
       'gulp-concat': '^2.6.0',
       'gulp-cssnano': '^2.1.0',
@@ -60,15 +57,6 @@ module.exports = class extends Generator {
       yargs: '^5.0.0'
     });
 
-    if (this.options.babel) {
-      _.merge(pkg, {
-        devDependencies: {
-          'gulp-babel': '^6.1.2',
-          'babel-preset-es2015': '^6.9.0'
-        }
-      });
-    }
-
     this.fs.writeJSON(this.destinationPath('package.json'), pkg);
 
     this.fs.copyTpl(
@@ -78,8 +66,7 @@ module.exports = class extends Generator {
         date: new Date().toISOString().split('T')[0],
         name: this.options.name,
         version: this.options.version,
-        buildContent: this.options.buildContent,
-        babel: this.options.babel
+        buildContent: this.options.buildContent
       }
     );
   }

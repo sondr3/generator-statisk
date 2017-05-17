@@ -6,12 +6,6 @@ module.exports = class extends Generator {
   constructor(args, options) {
     super(args, options);
 
-    this.option('babel', {
-      type: Boolean,
-      required: false,
-      desc: 'Compile your JS with Babel'
-    });
-
     this.option('readme', {
       type: String,
       required: false,
@@ -56,12 +50,6 @@ module.exports = class extends Generator {
         name: 'authorEmail',
         message: "What's your email?",
         store: true
-      },
-      {
-        name: 'babel',
-        type: 'confirm',
-        message: 'Compile your JS with Babel?',
-        when: this.options.babel === undefined
       }
     ];
 
@@ -92,9 +80,7 @@ module.exports = class extends Generator {
 
     this.composeWith(require.resolve('../git'));
 
-    this.composeWith(require.resolve('../gulp'), {
-      babel: this.props.babel
-    });
+    this.composeWith(require.resolve('../gulp'));
 
     this.composeWith(require.resolve('../readme'), {
       projectName: this.props.projectName,

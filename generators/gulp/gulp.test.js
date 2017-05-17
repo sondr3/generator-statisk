@@ -10,8 +10,7 @@ describe('generator-statisk -- no babel', () => {
     return helpers.run(path.join(__dirname, '.')).withOptions({
       name: pkg.name,
       version: pkg.version,
-      'skip-install': true,
-      babel: false
+      'skip-install': true
     });
   });
 
@@ -71,9 +70,11 @@ describe('generator-statisk -- no babel', () => {
     assert.jsonFileContent('package.json', {
       devDependencies: {
         autoprefixer: '^6.2.3',
+        'babel-preset-es2015': '^6.9.0',
         'browser-sync': '^2.11.0',
         del: '^2.2.0',
         gulp: 'git://github.com/gulpjs/gulp.git#4.0',
+        'gulp-babel': '^6.1.2',
         'gulp-cache': '^0.4.1',
         'gulp-concat': '^2.6.0',
         'gulp-cssnano': '^2.1.0',
@@ -96,35 +97,4 @@ describe('generator-statisk -- no babel', () => {
       }
     });
   });
-});
-
-describe('generator-statisk -- with babel', () => {
-  beforeAll(() => {
-    const pkg = require('../../package.json');
-
-    return helpers.run(require.resolve('.')).withOptions({
-      name: pkg.name,
-      version: pkg.version,
-      'skip-install': true,
-      babel: true
-    });
-  });
-
-  test('creates gulpfile', () => {
-    assert.file('gulpfile.js');
-  });
-
-  test('package.json contains babel packages', () => {
-    assert.jsonFileContent('package.json', {
-      devDependencies: {
-        'gulp-babel': '^6.1.2',
-        'babel-preset-es2015': '^6.9.0'
-      }
-    });
-  });
-
-  test('gulpfile contains babel', () => {
-    assert.fileContent('gulpfile.js', 'babel');
-    assert.fileContent('gulpfile.js', 'es2015');
-  })
 });
