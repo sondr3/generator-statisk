@@ -7,7 +7,7 @@ module.exports = class extends Generator {
     super(args, options);
 
     this.option('babel', {
-      type: String,
+      type: Boolean,
       required: true
     });
 
@@ -36,7 +36,6 @@ module.exports = class extends Generator {
     pkg.devDependencies = pkg.devDependencies || {};
     _.extend(pkg.devDependencies, {
       autoprefixer: '^6.2.3',
-      'babel-preset-es2015': '^6.9.0',
       'browser-sync': '^2.11.0',
       del: '^2.2.0',
       gulp: 'git://github.com/gulpjs/gulp.git#4.0',
@@ -62,7 +61,12 @@ module.exports = class extends Generator {
     });
 
     if (this.options.babel) {
-      pkg.devDependencies['gulp-babel'] = '^6.1.2';
+      _.merge(pkg, {
+        devDependencies: {
+          'gulp-babel': '^6.1.2',
+          'babel-preset-es2015': '^6.9.0'
+        }
+      });
     }
 
     this.fs.writeJSON(this.destinationPath('package.json'), pkg);
