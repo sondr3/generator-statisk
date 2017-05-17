@@ -28,6 +28,22 @@ module.exports = class extends Generator {
   writing() {
     const pkg = this.fs.readJSON(this.destinationPath('package.json'), {});
 
+    pkg.scripts = pkg.scripts || {};
+    _.extend(pkg.scripts, {
+      start: 'gulp --require babel-register --gulpfile ./tasks',
+      serve: 'gulp show --require babel-register --gulpfile ./tasks',
+      build: 'gulp build --require babel-register --gulpfile ./tasks',
+      prod: 'NODE_ENV=production gulp build --require babel-register --gulpfile ./tasks'
+    });
+
+    pkg.babel = pkg.babel || {};
+    _.extend(pkg.babel, {
+      babel: {
+        presets: ['es2015'],
+        babelrc: false
+      }
+    });
+
     pkg.devDependencies = pkg.devDependencies || {};
     _.extend(pkg.devDependencies, {
       autoprefixer: '^7.1.0',

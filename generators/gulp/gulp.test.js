@@ -14,6 +14,27 @@ describe('generator-statisk :: gulp', () => {
     });
   });
 
+  test('creates package.json', () => {
+    assert.file('package.json');
+  });
+
+  test('contains scripts', () => {
+    [
+      '"start": "gulp',
+      '"serve": "gulp show',
+      '"build": "gulp build',
+      '"prod": "NODE_ENV=production gulp build'
+    ].forEach(script => {
+      assert.fileContent('package.json', script);
+    });
+  });
+
+  test('contains babel information', () => {
+    ['"babel":', '"presets":',  '"es2015"', '"babelrc": false'].forEach(babel => {
+      assert.fileContent('package.json', babel);
+    });
+  });
+
   test('creates comment about creation', () => {
     const pkg = require('../../package.json');
 
@@ -22,10 +43,6 @@ describe('generator-statisk :: gulp', () => {
       'tasks/index.js',
       '// generated on ' + date + ' using ' + pkg.name + ' ' + pkg.version
     );
-  });
-
-  test('creates package.json', () => {
-    assert.file('package.json');
   });
 
   test('package.json contains correct packages', () => {
