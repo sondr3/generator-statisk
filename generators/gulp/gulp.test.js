@@ -88,6 +88,7 @@ describe('generator-statisk :: gulp', () => {
     [
       'browsersync.js',
       'clean.js',
+      'config.js',
       'copy.js',
       'fonts.js',
       'html.js',
