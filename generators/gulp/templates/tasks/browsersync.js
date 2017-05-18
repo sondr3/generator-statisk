@@ -7,8 +7,17 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import { config as webpackConfig } from './scripts';
 import { styles } from './styles';
 import { scripts } from './scripts';
+import { images } from './images';
+import { svg } from './svg';
+import { siteTmp, site, injectHead, injectFooter } from './site';
+import { copySite } from './copy';
+
+import { server as config, src } from './config';
 
 const bundler = webpack(webpackConfig);
+
+const inject = gulp.series(injectHead, injectFooter);
+const buildSite = gulp.series(siteTmp, inject, site, copySite);
 
 // Function to properly reload your browser
 function reload(done) {
@@ -22,7 +31,7 @@ export function serve() {
   browserSync.init({
     // tunnel: true,
     // open: false,
-    server: ['.tmp', 'dist'],
+    server: config.server,
     middleware: [
       webpackDevMiddleware(bundler, {
         stats: 'errors-only'
@@ -34,13 +43,10 @@ export function serve() {
   });
 
   // Watch various files for changes and do the needful
-  // gulp.watch(
-  //   ['src/**/*.md', 'src/**/*.html', 'src/**/*.yml'],
-  //   gulp.series('build:site', reload)
-  // );
+  gulp.watch(config.files, gulp.series(buildSite, reload));
 
-  // gulp.watch(['src/**/*.xml', 'src/**/*.txt'], gulp.series('site', reload));
-  gulp.watch('src/assets/javascript/**/*.js', gulp.series(scripts, reload));
-  gulp.watch('src/assets/scss/**/*.scss', gulp.series(styles));
-  // gulp.watch('src/assets/images/**/*', gulp.series('images', reload));
+  gulp.watch(config.extra, gulp.series(site, reload));
+  gulp.watch(`${config.js}/**/*.js`, gulp.series(scripts, reload));
+  gulp.watch(`${src.scss}/**/*.scss`, gulp.series(styles));
+  gulp.watch(`${src.images}/**/*`, gulp.series(images, reload));
 }

@@ -11,23 +11,25 @@ import sourcemaps from 'gulp-sourcemaps';
 import path from 'path';
 import webpack from 'webpack';
 
+import { src, dest } from './config';
+
 const production = process.env.NODE_ENV === 'production';
 
 export let config = {
   entry: production
     ? {
-        main: './assets/javascript/main.js'
+        main: `${src.js}/main.js`
       }
     : {
         main: [
-          './assets/javascript/main.js',
+          `${src.js}/main.js`,
           'webpack/hot/dev-server',
           'webpack-hot-middleware/client'
         ]
       },
   output: {
     filename: production ? './[name]-[chunkhash].js' : './[name].js',
-    path: path.resolve(__dirname, '../.tmp/assets/javascript')
+    path: path.resolve(__dirname, dest.js)
   },
   context: path.resolve(__dirname, '../src'),
   devtool: 'source-map',

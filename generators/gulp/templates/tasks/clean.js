@@ -3,28 +3,24 @@
 import gulp from 'gulp';
 import del from 'del';
 
+import { clean as config } from './config';
+
 export function cleanAssets() {
-  return del([
-    '.tmp/**/*',
-    '!.tmp/assets',
-    '!.tmp/assets/images',
-    '!.tmp/assets/images/**/*',
-    'dist/assets'
-  ]);
+  return del(config.assets);
 }
 
 export function cleanImages() {
-  return del(['.tmp/assets/images', 'dist/assets/images']);
+  return del(config.images);
 }
 
 export function cleanDist() {
-  return del(['dist/', '.tmp/dist']);
+  return del(config.dist);
 }
 
 export function cleanGzip() {
-  return del(['dist/**/*.gz']);
+  return del(config.gzip);
 }
 
 export function cleanSite() {
-  return del(['.tmp/src']);
+  return del(config.site);
 }

@@ -6,10 +6,12 @@ import pngquant from 'imagemin-pngquant';
 import cache from 'gulp-cache';
 import size from 'gulp-size';
 
+import { src, dest } from './config';
+
 // 'gulp images' -- optimizes and caches your images
 export function images() {
   return gulp
-    .src('src/assets/images/**/*')
+    .src(`${src.images}/**/*`)
     .pipe(
       cache(
         imagemin([
@@ -19,6 +21,6 @@ export function images() {
         ])
       )
     )
-    .pipe(gulp.dest('.tmp/assets/images'))
+    .pipe(gulp.dest(dest.images))
     .pipe(size({ title: 'images' }));
 }

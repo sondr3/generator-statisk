@@ -6,13 +6,15 @@ import size from 'gulp-size';
 import gzip from 'gulp-size';
 import htmlmin from 'gulp-htmlmin';
 
+import { src, dest } from './config';
+
 const production = process.env.NODE_ENV === 'production';
 
 // 'gulp html' -- does nothing
 // 'gulp html --prod' -- minifies and gzips our HTML files
 export function minifyHTML() {
   return gulp
-    .src('dist/**/*.html')
+    .src(`${src.html}/**/*.html`)
     .pipe(
       gulpif(
         production,
@@ -26,7 +28,7 @@ export function minifyHTML() {
       )
     )
     .pipe(gulpif(production, size({ title: 'optimized HTML' })))
-    .pipe(gulpif(production, gulp.dest('dist')))
+    .pipe(gulpif(production, gulp.dest(dest.html)))
     .pipe(gulpif(production, gzip({ append: true })))
     .pipe(
       gulpif(
@@ -37,5 +39,5 @@ export function minifyHTML() {
         })
       )
     )
-    .pipe(gulpif(production, gulp.dest('dist')));
+    .pipe(gulpif(production, gulp.dest(dest.html)));
 }

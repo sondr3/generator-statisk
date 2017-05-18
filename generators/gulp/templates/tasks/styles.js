@@ -13,6 +13,8 @@ import size from 'gulp-size';
 import gulpif from 'gulp-if';
 import sourcemaps from 'gulp-sourcemaps';
 
+import { src, dest } from './config';
+
 const production = process.env.NODE_ENV === 'production';
 
 // 'gulp styles' -- creates a CSS file from your SASS, adds prefixes and
@@ -21,7 +23,7 @@ const production = process.env.NODE_ENV === 'production';
 // then minifies, gzips and cache busts it. Does not create a sourcemap
 export function styles() {
   return gulp
-    .src('src/assets/scss/style.scss')
+    .src(`${src.scss}/style.scss`)
     .pipe(gulpif(!production, sourcemaps.init()))
     .pipe(
       sass({
@@ -49,7 +51,7 @@ export function styles() {
     )
     .pipe(gulpif(production, rev()))
     .pipe(gulpif(!production, sourcemaps.write('.')))
-    .pipe(gulpif(production, gulp.dest('.tmp/assets/stylesheets')))
+    .pipe(gulpif(production, gulp.dest(dest.scss)))
     .pipe(gulpif(production, gulpif('*.css', gzip({ append: true }))))
     .pipe(
       gulpif(
@@ -60,6 +62,6 @@ export function styles() {
         })
       )
     )
-    .pipe(gulp.dest('.tmp/assets/stylesheets'))
+    .pipe(gulp.dest(dest.scss))
     .pipe(browserSync.stream({ match: '**/*.css' }));
 }
