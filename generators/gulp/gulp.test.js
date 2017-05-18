@@ -30,7 +30,12 @@ describe('generator-statisk :: gulp', () => {
   });
 
   test('contains babel information', () => {
-    ['"babel":', '"presets":',  '"es2015"', '"babelrc": false'].forEach(babel => {
+    [
+      '"babel":',
+      '"presets":',
+      '"es2015"',
+      '"babelrc": false'
+    ].forEach(babel => {
       assert.fileContent('package.json', babel);
     });
   });
