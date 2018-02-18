@@ -1,16 +1,15 @@
 "use strict";
-const path = require("path");
 const assert = require("yeoman-assert");
 const helpers = require("yeoman-test");
 
 describe("generator-statisk:app", () => {
   beforeAll(() => {
     return helpers
-      .run(path.join(__dirname, "../generators/app"))
-      .withPrompts({ someAnswer: true });
+      .run(require.resolve("../generators/app"))
+      .withGenerators([[helpers.createDummyGenerator(), "statisk:git"]]);
   });
 
-  it("creates files", () => {
-    assert.file(["dummyfile.txt"]);
+  it("creates .gitignore", () => {
+    assert.file(".gitignore");
   });
 });
