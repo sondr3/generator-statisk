@@ -1,97 +1,36 @@
 'use strict';
 const Generator = require('yeoman-generator');
-const _ = require('lodash');
+const chalk = require('chalk');
+const yosay = require('yosay');
 
 module.exports = class extends Generator {
-  constructor(args, options) {
-    super(args, options);
-
-    this.option('readme', {
-      type: String,
-      required: false,
-      desc: 'Content to insert into README.md'
-    });
-
-    this.option('buildContent', {
-      type: String,
-      requred: true,
-      desc: 'Gulp tasks to build your site with your static site generator'
-    });
-  }
-
-  initializing() {
-    this.props = {};
-    this.pkg = this.fs.readJSON(this.destinationPath('package.json'), {});
-  }
-
   prompting() {
-    var questions = [
-      {
-        name: 'projectName',
-        message: 'Project name',
-        store: true
-      },
-      {
-        name: 'projectDescription',
-        message: 'Project description',
-        store: true
-      },
-      {
-        name: 'projectURL',
-        message: 'Project URL',
-        store: true
-      },
-      {
-        name: 'authorName',
-        message: "What's your name?",
-        store: true
-      },
-      {
-        name: 'authorEmail',
-        message: "What's your email?",
-        store: true
-      }
-    ];
+    // Have Yeoman greet the user.
+    this.log(yosay(
+      'Welcome to the superb ' + chalk.red('generator-statisk') + ' generator!'
+    ));
 
-    return this.prompt(questions).then(
-      function(props) {
-        this.props = props;
-      }.bind(this)
-    );
+    const prompts = [{
+      type: 'confirm',
+      name: 'someAnswer',
+      message: 'Would you like to enable this option?',
+      default: true
+    }];
+
+    return this.prompt(prompts).then(props => {
+      // To access props later use this.props.someAnswer;
+      this.props = props;
+    });
   }
 
   writing() {
-    var pkgJSONFields = {
-      name: _.kebabCase(this.props.projectName),
-      version: '0.0.0',
-      description: this.props.projectDescription,
-      homepage: this.props.projectURL,
-      author: {
-        name: this.props.authorName,
-        email: this.props.authorEmail
-      }
-    };
-
-    this.fs.writeJSON('package.json', _.extend(pkgJSONFields, this.pkg));
-  }
-
-  default() {
-    this.composeWith(require.resolve('../editorconfig'));
-
-    this.composeWith(require.resolve('../git'));
-
-    this.composeWith(require.resolve('../gulp'));
-
-    this.composeWith(require.resolve('../readme'), {
-      projectName: this.props.projectName,
-      projectDescription: this.props.projectDescription,
-      projectURL: this.props.projectURL,
-      authorName: this.props.authorName,
-      content: this.options.readme
-    });
+    this.fs.copy(
+      this.templatePath('dummyfile.txt'),
+      this.destinationPath('dummyfile.txt')
+    );
   }
 
   install() {
-    this.installDependencies({ bower: false });
+    this.installDependencies();
   }
 };
