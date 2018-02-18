@@ -9,7 +9,8 @@ describe("generator-statisk:app", () => {
       .withGenerators([[helpers.createDummyGenerator(), "statisk:git"]]);
   });
 
-  it("creates .gitignore", () => {
+  it("creates required files", () => {
     assert.file(".gitignore");
+    assert.file(".gitattributes");
   });
 });
