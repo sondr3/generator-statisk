@@ -6,11 +6,13 @@ describe("generator-statisk:app", () => {
   beforeAll(() => {
     return helpers
       .run(require.resolve("../generators/app"))
-      .withGenerators([[helpers.createDummyGenerator(), "statisk:git"]]);
+      .withGenerators([
+        [helpers.createDummyGenerator(), "statisk:git"],
+        [helpers.createDummyGenerator(), "statisk:editorconfig"]
+      ]);
   });
 
   it("creates required files", () => {
-    assert.file(".gitignore");
-    assert.file(".gitattributes");
+    assert.file([".gitignore", ".gitattributes", ".editorconfig"]);
   });
 });

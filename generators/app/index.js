@@ -13,6 +13,8 @@ module.exports = class extends Generator {
   }
 
   default() {
+    this.composeWith(require.resolve("../editorconfig"));
+
     this.composeWith(require.resolve("../git"), {
       gitignore: this.options.gitignore
     });
